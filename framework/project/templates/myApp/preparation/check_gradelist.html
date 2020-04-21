@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>所属班级列表</title>
+
+</head>
+<style>
+        html,body{text-align:center;margin:0px auto;}
+</style>
+<body>
+<h1>您教授的班级如下：</h1>
+<u1>
+        {%for Teacher_grade in gradelist%}
+
+        <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
+       <li><I>班级：</I> {{Teacher_grade.grade}}  </li>
+
+
+        <a href="http://127.0.0.1:8000/login/12/{{Teacher_grade.grade}}">
+            <input type="submit" value = "查看该班级学生信息" />
+        </a>
+       <!--<input type="submit" value = "提交作业" /></a>-->
+
+</li>
+
+        {%endfor%}
+</u1>
+
+</body>
+
