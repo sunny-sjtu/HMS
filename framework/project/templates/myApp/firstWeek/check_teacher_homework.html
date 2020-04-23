@@ -13,20 +13,62 @@
 <body>
 <h1>记得批改作业哦~</h1>
 <u1>
-        {%for homework in homeworkList%}
+        {%for homework in page%}
     <li>
         <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
             {{homework.homework_content}}
-
-        <a href="http://127.0.0.1:8000/login/9/{{homework.id}}">
+        <a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
             <input type="submit" value = "查看作业完成情况" />
         </a>
        <!--<input type="submit" value = "提交作业" /></a>-->
-
-
     </li>
         {%endfor%}
 </u1>
+
+
+<nav aria-label="Page navigation">
+		<div class="pagination">
+			<ul class="pagination">
+			{% if page.has_previous %}
+				<li>
+                    <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% for num in page.paginator.page_range %}
+            	{% if pindex == page.number %}
+                	<li class="active"><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if page.has_next %}
+                 <li>
+                     <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.next_page_number}}" aria-label="Next">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% else %}
+                 <li class="disabled">
+                     <a href="" aria-label="Previous">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% endif %}
+       		</ul>
+		</div>
+ </nav>
 
 </body>
 </html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>作业分类列表_已提交作业</title>
+
+</head>
+<style>
+        html,body{text-align:center;margin:0px auto;}
+</style>
+<body>
+<h1></h1>
+<h2>详细作业列表</h2>
+<u1>
+        {%for homework in page%}
+                <li><I>发布时间：</I> {{homework.homework_create_time}}</li>
+                <li><I>作业内容：</I> {{homework.homework_content}}</li>
+                <li><I>提交的作业：</I> {{homework.handIn_homework}}</li>
+                {%for homework1 in homework1List%}
+                     {% if homework1.id == homework.id %}
+                          <li><I>答题情况：</I>
+                              {% if homework1.iscommented == False %}
+                              <p><span>  待批改 </span></p>
+                              {% endif %}
+
+                              {% if homework1.iscorrect == True %}
+                              <p><span>  正确√</span></p>
+                              {% elif homework1.iscorrect == False %}
+                              <p><span>  错误×</span></p>
+                              {% endif %}
+                          </li>
+                          <li><I>老师批改评论：</I> {{homework1.tcomment}}</li>
+                     {% endif %}
+                {%endfor%}
+                <pre></pre>
+        {%endfor%}
+</u1>
+
+
+<nav aria-label="Page navigation">
+		<div class="pagination">
+			<ul class="pagination">
+			{% if page.has_previous %}
+				<li>
+                    <a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{page.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% for num in page.paginator.page_range %}
+            	{% if pindex == page.number %}
+                	<li class="active"><a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if page.has_next %}
+                 <li>
+                     <a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{page.next_page_number}}" aria-label="Next">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% else %}
+                 <li class="disabled">
+                     <a href="" aria-label="Previous">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% endif %}
+       		</ul>
+		</div>
+ </nav>
+</body>
+</html>

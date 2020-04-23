@@ -76,7 +76,8 @@ def regist(request):  # 注册函数
                 user = User.objects.create(username=username, password=password, email=email, gender=gender, age=age,
                                            grade=grade, isTeacher=-1)
                 user.save()
-                student = Student.objects.create(sname=username, sgender=gender, sage=age, sgrade=grade, semail=email, isDelete=False)
+                student = Student.objects.create(sname=username, sgender=gender, sage=age, sgrade=grade, semail=email,
+                                                 isDelete=False)
                 student.save()
                 return HttpResponse('Student registered!!!')
 
@@ -113,7 +114,8 @@ def login(request):  # 登录函数
             user = User.objects.filter(email__exact=email, password__exact=password)
             if user and isTeacher == TeacherPassword:
                 teacher = Teacher.objects.get(semail=email)
-                return render_to_response('myApp/preparation/info_teacher.html', {'teacher': teacher})
+                pindex = 1
+                return render_to_response('myApp/preparation/info_teacher.html', {'teacher': teacher, 'pindex': pindex})
 
             if user and isTeacher == "":
                 student = Student.objects.get(semail=email)
@@ -257,13 +259,12 @@ def delete_teacher_grade(request, num):  # 删除老师所教班级
     return render_to_response('myApp/preparation/delete_teacher_grade.html', {'userform': userform})
 
 
+def check_gradelist(request, num):  # 老师查看所属班级
+    gradelist = Teacher_grade.objects.filter(teacher_id=num)
 
-def check_gradelist(request,num):         #老师查看所属班级
-   gradelist = Teacher_grade.objects.filter(teacher_id=num)
-
-   return render_to_response('myApp/preparation/check_gradelist.html',{'gradelist':gradelist})
+    return render_to_response('myApp/preparation/check_gradelist.html', {'gradelist': gradelist})
 
 
-def check_studentlist(request,char):          #老师查看所属班级学生信息
-    studentlist = Student.objects.filter(sgrade = char)
+def check_studentlist(request, char):  # 老师查看所属班级学生信息
+    studentlist = Student.objects.filter(sgrade=char)
     return render_to_response('myApp/preparation/check_studentlist.html', {'studentlist': studentlist})
