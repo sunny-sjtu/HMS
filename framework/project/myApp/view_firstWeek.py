@@ -24,6 +24,12 @@ class UserForm_correct_homework(forms.Form):  # 批改作业表单
     teacher_comment = forms.CharField(required=False, label='批改作业', max_length=200)
     isCorrect = forms.BooleanField(required=False, label='作业是否正确')
 
+class UserForm_feedback_homework(forms.Form): # 反馈作业表单
+    feedback_homework = forms.FileField(label='提交反馈作业内容')
+    feedback_comment = forms.CharField(required=False, label='反馈作业', max_length=200)
+
+class UserForm_check_feedback_homework(forms.Form):  #查看反馈作业表单
+    isright = forms.BooleanField(required=False, label='反馈是否正确')
 
 @csrf_exempt
 def launch_homework(request, num):  # 发布作业
@@ -58,7 +64,7 @@ def launch_homework(request, num):  # 发布作业
                                                        teacher_id=teacher.pk,
                                                        homework_id=ht.pk)
                     homework.save()
-                    homework1 = Homework1.objects.create(student_id=student.pk, teacher_id=teacher.pk)
+                    homework1 = Homework1.objects.create(student_id=student.pk, teacher_id=teacher.pk,homework_id=ht.pk)
 
                     homework1.save()
 
@@ -120,8 +126,11 @@ def check_student_unfinished_homework_html2(request, num):  # 学生查看未提
                               {'teacherList': teacherList, 'studentId': student.id, 'pindex': pindex})
 
 
+
+
 def check_student_unfinished_homework_html3(request, num1, num2, pindex):  # 学生查看未提交作业html3
     homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False)
+
     paginator = Paginator(homeworkList, 5)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
@@ -175,6 +184,7 @@ def check_teacher_homework(request, num, pindex):  # 老师查看作业
                                                                               'pindex1': pindex1})
 
 
+
 def check_submission_homework(request, num, pindex):  # 老师查看作业提交情况
 
     studentnamelist = Homework.objects.filter(homework_id=num)
@@ -216,3 +226,62 @@ def correct_homework(request, num):  # 老师批改作业
             userform = UserForm_correct_homework()
         return render_to_response('myApp/firstWeek/correct_homework.html',
                                   {'file_url': s_homework.handIn_homework.url, 'userform': userform})
+
+@csrf_exempt
+def feedback_homework(request,  num1, num2, num3):  # 学生反馈作业
+    if request.method == 'POST':
+        userform = UserForm_feedback_homework(request.POST or None, request.FILES or None)
+        if userform.is_valid():
+
+            feedback_homework = request.FILES.get("feedback_homework")
+
+            feedback_comment = userform.cleaned_data['feedback_comment']
+
+            if feedback_comment != "":
+                isfeedback = True
+
+            Homework1.objects.filter(pk=num3, student_id=num1, teacher_id=num2 ).update(feedback_homework=feedback_homework, feedback_comment=feedback_comment,isfeedback=isfeedback)
+
+            return HttpResponse('成功反馈作业！')
+    else:
+        userform = UserForm_feedback_homework()
+    return render_to_response('myApp/firstWeek/feedback_student_finishedhomework_html3.html', {'userform': userform})
+
+def check_feedback_homework(request, num):  #  老师查看反馈作业
+    studentnamelist = Homework1.objects.filter(homework_id=num)
+    studentList = Student.objects.all()
+    return render_to_response('myApp/firstWeek/check_feedback_homework.html', {'studentnamelist': studentnamelist,
+                                         'homework_id': num,'studentList':studentList})#'file_url':studentnamelist.feedback_homework.url})
+
+def check_redo_homework(request, num):  #  老师查看未订正学生名单
+    studentnamelist = Homework1.objects.filter(homework_id=num)
+    studentList = Student.objects.all()
+    return render_to_response('myApp/firstWeek/check_redo_homework.html', {'studentnamelist': studentnamelist,
+                                                         'homework_id': num,'studentList':studentList})#'file_url':studentnamelist.feedback_homework.url})
+
+@csrf_exempt
+def correct_feedback_homework(request, num1):  # 老师批改学生反馈内容
+    homework1 = Homework1.objects.filter(pk=num1).first()
+    if request.method == 'POST':
+        userform = UserForm_check_feedback_homework(request.POST or None, request.FILES or None)
+        if userform.is_valid():
+
+            isright = userform.cleaned_data['isright']
+
+            if homework1.iscorrect:
+                homework1.iscorrect = homework1.iscorrect
+            else:
+                homework1.iscorrect = homework1.isright
+
+            Homework1.objects.filter(pk=num1).update(isright=isright,iscorrect=homework1.iscorrect)
+
+
+            return HttpResponse('成功批改反馈作业！')
+    else:
+        userform = UserForm_check_feedback_homework()
+    return render_to_response('myApp/firstWeek/correct_feedback_homework.html',
+                                { 'file_url':homework1.feedback_homework.url,'userform': userform,'feedback_comment':homework1.feedback_comment})
+
+
+
+

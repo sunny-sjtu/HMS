@@ -58,6 +58,7 @@ class Homework(models.Model):  # 作业类
 
 
 
+
 class Notice_student(models.Model):  # 学生通知类
     notice_create_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     teacher_email = models.EmailField()
@@ -72,7 +73,12 @@ class Teacher_homework(models.Model):  #老师作业类
 class Homework1(models.Model):      #为避免上面的Homework类冗余数据过多，新建一个作业类，与上面的Homework类一一对应
     student_id = models.IntegerField()
     teacher_id = models.IntegerField()
+    homework_id = models.IntegerField()
     iscorrect = models.NullBooleanField()
     tcomment = models.CharField(max_length=200,default='待评论！')
     iscommented = models.BooleanField(default=False)
     isComplete = models.BooleanField(default=False)
+    feedback_homework = models.FileField(null=True,upload_to='avatar')
+    feedback_comment = models.CharField(max_length=200,default='待评论！')
+    isright = models.BooleanField(default=False)
+    isfeedback = models.BooleanField(default=False)

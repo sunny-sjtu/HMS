@@ -32,7 +32,18 @@
                               {% endif %}
                           </li>
                           <li><I>老师批改评论：</I> {{homework1.tcomment}}</li>
-                     {% endif %}
+
+                              {% if homework1.iscommented == True %}
+                          <a href="http://127.0.0.1:8000/login/14/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">
+                          <input type="submit" value = "提交反馈内容" />
+                          </a>
+                              {% elif homework1.iscommented == False %}
+                          <p><span>  老师尚未批改，可以重新提交 </span></p >
+                          <a href="http://127.0.0.1:8000/login/7/{{homework.id}}">
+                          <input type="submit" value = "重新提交作业" />
+                          </a>
+                              {% endif %}
+                    {% endif %}
                 {%endfor%}
                 <pre></pre>
         {%endfor%}
