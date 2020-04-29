@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客观题列表</title>
+</head>
+<body>
+<h1>客观题作业列表</h1>
+<u1>
+        {%for homework in homeworkList%}
+
+        <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
+       <li> <I>作业布置时间：</I> {{homework.homework_create_time}}  </li>
+
+
+
+        <a href="http://127.0.0.1:8000/login/18/{{homework.id}}">
+            <input type="submit" value = "查看提交情况" />
+        </a>
+
+
+    </li>
+
+
+
+    </li>
+
+</li>
+
+        {%endfor%}
+</u1>
+
+
+</body>
+</html>
