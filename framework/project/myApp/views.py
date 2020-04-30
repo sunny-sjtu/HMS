@@ -72,6 +72,12 @@ def regist(request):  # 注册函数
             grade = userform.cleaned_data['grade']
             isTeacher = userform.cleaned_data['isTeacher']
 
+            userList0 = User.objects.all()
+            for user0 in userList0:
+                if user0.email == email:
+                    return HttpResponse('这个邮箱已经被注册了!!!')
+
+
             if isTeacher == "":
                 user = User.objects.create(username=username, password=password, email=email, gender=gender, age=age,
                                            grade=grade, isTeacher=-1)
@@ -79,7 +85,7 @@ def regist(request):  # 注册函数
                 student = Student.objects.create(sname=username, sgender=gender, sage=age, sgrade=grade, semail=email,
                                                  isDelete=False)
                 student.save()
-                return HttpResponse('Student registered!!!')
+                return HttpResponse('成功注册学生用户!!!')
 
             if isTeacher != TeacherPassword:
                 user = User.objects.create(username=username, password=password, email=email, gender=gender, age=age,
@@ -88,7 +94,7 @@ def regist(request):  # 注册函数
                 student = Student.objects.create(sname=username, sgender=gender, sage=age, sgrade=grade, semail=email,
                                                  isDelete=False)
                 student.save()
-                return HttpResponse('Student registered!!!')
+                return HttpResponse('成功注册学生用户!!!')
 
             if isTeacher == TeacherPassword:
                 user = User.objects.create(username=username, password=password, email=email, gender=gender, age=age,
@@ -96,7 +102,7 @@ def regist(request):  # 注册函数
                 user.save()
                 teacher = Teacher.objects.create(sname=username, sgender=gender, sage=age, semail=email, isDelete=False)
                 teacher.save()
-                return HttpResponse('Teacher registered!!!')
+                return HttpResponse('成功注册老师用户!!!')
     else:
         userform = UserForm_regist()
     return render_to_response('myApp/preparation/regist.html', {'userform': userform})  # error

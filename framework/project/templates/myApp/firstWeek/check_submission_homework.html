@@ -13,16 +13,23 @@
 <body>
 <h1>记得批改作业哦~</h1>
 <u1>
-        {%for homework in studentnamelist%}
-
-    <li>
-        <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
-            {{homework.student_name}}
-        <a href="http://127.0.0.1:8000/login/10/{{homework.id}}">
-            <input type="submit" value = "查看该学生作业完成情况并批改" />
-        </a>
-       <!--<input type="submit" value = "提交作业" /></a>-->
-    </li>
+        {%for homework in page%}
+        {% if homework.isComplete == True %}
+             {%for homework1 in homework1List %}
+                   {% if homework1.id == homework.id%}
+                         {% if homework1.iscommented == False %}
+                            <li>
+                                <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
+                                {{homework.student_name}}
+                                <a href="http://127.0.0.1:8000/login/10/{{homework.id}}">
+                                    <input type="submit" value = "查看该学生作业并批改" />
+                                </a>
+                                <!--<input type="submit" value = "提交作业" /></a>-->
+                            </li>
+                         {% endif %}
+                   {% endif %}
+             {%endfor%}
+        {% endif %}
         {%endfor%}
 </u1>
 
@@ -32,7 +39,7 @@
 			<ul class="pagination">
 			{% if page.has_previous %}
 				<li>
-                    <a href="http://127.0.0.1:8000/login/9/{{homework_id}}/{{page.previous_page_number}}" aria-label="Previous">
+                    <a href="http://127.0.0.1:8000/login/9/2/{{homework_id}}/{{page.previous_page_number}}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -47,16 +54,16 @@
 
             {% for num in page.paginator.page_range %}
             	{% if pindex == page.number %}
-                	<li class="active"><a href="http://127.0.0.1:8000/login/9/{{homework_id}}/{{num}}">{{ num }}</a></li>
+                	<li class="active"><a href="http://127.0.0.1:8000/login/9/2/{{homework_id}}/{{num}}">{{ num }}</a></li>
                 {% else %}
-                    <li><a href="http://127.0.0.1:8000/login/9/{{homework_id}}/{{num}}">{{ num }}</a></li>
+                    <li><a href="http://127.0.0.1:8000/login/9/2/{{homework_id}}/{{num}}">{{ num }}</a></li>
                 {% endif %}
             {% endfor %}
 
 
             {% if page.has_next %}
                  <li>
-                     <a href="http://127.0.0.1:8000/login/9/{{homework_id}}/{{page.next_page_number}}" aria-label="Next">
+                     <a href="http://127.0.0.1:8000/login/9/2/{{homework_id}}/{{page.next_page_number}}" aria-label="Next">
                          <span aria-hidden="true">&raquo;</span>
                      </a>
                  </li>

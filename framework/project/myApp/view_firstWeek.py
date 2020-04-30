@@ -24,12 +24,15 @@ class UserForm_correct_homework(forms.Form):  # 批改作业表单
     teacher_comment = forms.CharField(required=False, label='批改作业', max_length=200)
     isCorrect = forms.BooleanField(required=False, label='作业是否正确')
 
-class UserForm_feedback_homework(forms.Form): # 反馈作业表单
+
+class UserForm_feedback_homework(forms.Form):  # 反馈作业表单
     feedback_homework = forms.FileField(label='提交反馈作业内容')
     feedback_comment = forms.CharField(required=False, label='反馈作业', max_length=200)
 
-class UserForm_check_feedback_homework(forms.Form):  #查看反馈作业表单
+
+class UserForm_check_feedback_homework(forms.Form):  # 查看反馈作业表单
     isright = forms.BooleanField(required=False, label='反馈是否正确')
+
 
 @csrf_exempt
 def launch_homework(request, num):  # 发布作业
@@ -64,7 +67,8 @@ def launch_homework(request, num):  # 发布作业
                                                        teacher_id=teacher.pk,
                                                        homework_id=ht.pk)
                     homework.save()
-                    homework1 = Homework1.objects.create(student_id=student.pk, teacher_id=teacher.pk,homework_id=ht.pk)
+                    homework1 = Homework1.objects.create(student_id=student.pk, teacher_id=teacher.pk,
+                                                         homework_id=ht.pk)
 
                     homework1.save()
 
@@ -96,11 +100,16 @@ def check_student_finished_homework_html2(request, num):  # 学生查看已提�
                               {'teacherList': teacherList, 'studentId': student.id, 'pindex': pindex})
 
 
-def check_student_finished_homework_html3(request, num1, num2, pindex):  # 学生查看已提交作业html3
+def check_student_finished_homework_html3_handInTime(request, num1, num2, pindex):  # 学生查看已提交作业html3（默认提交日期排序）
 
-    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=True)
-    homework1List = Homework1.objects.filter(student_id=num1, teacher_id=num2, isComplete=True)
-    paginator = Paginator(homeworkList, 3)  # 实例化Paginator, 每页显示5条数据
+    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=True).order_by('-id')
+    homework1List = Homework1.objects.filter(student_id=num1, teacher_id=num2, isComplete=True).order_by('-id')
+    homeworkList_sorted_by_handInTime = Homework.objects.filter(student_id=num1, teacher_id=num2,
+                                                                isComplete=True).order_by('-handIn_time')
+    homework1List_sorted_by_handInTime = Homework1.objects.filter(student_id=num1, teacher_id=num2,
+                                                                  isComplete=True).order_by('-handIn_time')
+
+    paginator = Paginator(homeworkList_sorted_by_handInTime, 3)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
     else:  # 如果有返回在值，把返回值转为整数型
@@ -108,6 +117,30 @@ def check_student_finished_homework_html3(request, num1, num2, pindex):  # 学�
     page = paginator.page(pindex)  # 传递当前页的实例对象到前端
     return render_to_response('myApp/firstWeek/student_paging_finished_html3.html',
                               {'homeworkList': homeworkList, 'homework1List': homework1List, 'student_id': num1,
+                               'homeworkList_sorted_by_handInTime': homeworkList_sorted_by_handInTime,
+                               'homework1List_sorted_by_handInTime': homework1List_sorted_by_handInTime,
+                               'teacher_id': num2, "page": page})
+
+
+def check_student_finished_homework_html3_createtime(request, num1, num2, pindex):  # 学生查看已提交作业html3（改为发布日期排序）
+
+    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=True).order_by('-id')
+    homework1List = Homework1.objects.filter(student_id=num1, teacher_id=num2, isComplete=True).order_by('-id')
+    homeworkList_sorted_by_handInTime = Homework.objects.filter(student_id=num1, teacher_id=num2,
+                                                                isComplete=True).order_by('-handIn_time')
+    homework1List_sorted_by_handInTime = Homework1.objects.filter(student_id=num1, teacher_id=num2,
+                                                                  isComplete=True).order_by('-handIn_time')
+
+    paginator = Paginator(homeworkList, 3)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
+    return render_to_response('myApp/firstWeek/student_paging_finished_html3_sorted_by_createtime.html',
+                              {'homeworkList': homeworkList, 'homework1List': homework1List, 'student_id': num1,
+                               'homeworkList_sorted_by_handInTime': homeworkList_sorted_by_handInTime,
+                               'homework1List_sorted_by_handInTime': homework1List_sorted_by_handInTime,
                                'teacher_id': num2, "page": page})
 
 
@@ -126,19 +159,35 @@ def check_student_unfinished_homework_html2(request, num):  # 学生查看未提
                               {'teacherList': teacherList, 'studentId': student.id, 'pindex': pindex})
 
 
-
-
-def check_student_unfinished_homework_html3(request, num1, num2, pindex):  # 学生查看未提交作业html3
-    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False)
-
-    paginator = Paginator(homeworkList, 5)  # 实例化Paginator, 每页显示5条数据
+def check_student_unfinished_homework_html3_sorted_by_deadline(request, num1, num2, pindex):  # 学生查看未提交作业html3（默认截止日期排序）
+    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False).order_by('-id')
+    homeworkList_sorted_by_ddl = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False).order_by(
+        '-homework_deadline')
+    paginator = Paginator(homeworkList_sorted_by_ddl, 5)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
     else:  # 如果有返回在值，把返回值转为整数型
         int(pindex)
     page = paginator.page(pindex)  # 传递当前页的实例对象到前端
     return render_to_response('myApp/firstWeek/student_paging_unfinished_html3.html',
-                              {'homeworkList': homeworkList, 'student_id': num1, 'teacher_id': num2, "page": page})
+                              {'homeworkList': homeworkList, 'student_id': num1, 'teacher_id': num2, "page": page,
+                               "homeworkList_sorted_by_ddl": homeworkList_sorted_by_ddl})
+
+
+def check_student_unfinished_homework_html3_sorted_by_createtime(request, num1, num2,
+                                                                 pindex):  # 学生查看未提交作业html3（改为发布日期排序）
+    homeworkList = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False).order_by('-id')
+    homeworkList_sorted_by_ddl = Homework.objects.filter(student_id=num1, teacher_id=num2, isComplete=False).order_by(
+        '-homework_deadline')
+    paginator = Paginator(homeworkList, 5)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
+    return render_to_response('myApp/firstWeek/student_paging_unfinished_html3_sorted_by_createtime.html',
+                              {'homeworkList': homeworkList, 'student_id': num1, 'teacher_id': num2, "page": page,
+                               "homeworkList_sorted_by_ddl": homeworkList_sorted_by_ddl})
 
 
 @csrf_exempt
@@ -169,7 +218,7 @@ def submit_student_homework(request, num):  # 学生提交作业
 
 def check_teacher_homework(request, num, pindex):  # 老师查看作业
 
-    homeworkList = Teacher_homework.objects.filter(teacher_id=num)
+    homeworkList = Teacher_homework.objects.filter(teacher_id=num).order_by('-id')
     paginator = Paginator(homeworkList, 5)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
@@ -184,10 +233,10 @@ def check_teacher_homework(request, num, pindex):  # 老师查看作业
                                                                               'pindex1': pindex1})
 
 
-
 def check_submission_homework(request, num, pindex):  # 老师查看作业提交情况
 
-    studentnamelist = Homework.objects.filter(homework_id=num)
+    studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
+    homework1List = Homework1.objects.all()
     paginator = Paginator(studentnamelist, 1)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
@@ -195,7 +244,24 @@ def check_submission_homework(request, num, pindex):  # 老师查看作业提交
         int(pindex)
     page = paginator.page(pindex)  # 传递当前页的实例对象到前端
     return render_to_response('myApp/firstWeek/check_submission_homework.html', {'studentnamelist': studentnamelist,
-                                                                                 'homework_id': num, "page": page})
+                                                                                 'homework_id': num, "page": page,
+                                                                                 'homework1List': homework1List})
+
+
+def check_common_student_the_homework(request, num, pindex):  # 老师查看正确或订正正确且未迟交的学生名单
+
+    studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
+    homework1List = Homework1.objects.all()
+    paginator = Paginator(studentnamelist, 1)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
+    return render_to_response('myApp/firstWeek/check_common_student_the_homework.html',
+                              {'studentnamelist': studentnamelist,
+                               'homework_id': num, "page": page,
+                               'homework1List': homework1List})
 
 
 @csrf_exempt
@@ -227,8 +293,9 @@ def correct_homework(request, num):  # 老师批改作业
         return render_to_response('myApp/firstWeek/correct_homework.html',
                                   {'file_url': s_homework.handIn_homework.url, 'userform': userform})
 
+
 @csrf_exempt
-def feedback_homework(request,  num1, num2, num3):  # 学生反馈作业
+def feedback_homework(request, num1, num2, num3):  # 学生反馈作业
     if request.method == 'POST':
         userform = UserForm_feedback_homework(request.POST or None, request.FILES or None)
         if userform.is_valid():
@@ -240,24 +307,59 @@ def feedback_homework(request,  num1, num2, num3):  # 学生反馈作业
             if feedback_comment != "":
                 isfeedback = True
 
-            Homework1.objects.filter(pk=num3, student_id=num1, teacher_id=num2 ).update(feedback_homework=feedback_homework, feedback_comment=feedback_comment,isfeedback=isfeedback)
+            Homework1.objects.filter(pk=num3, student_id=num1, teacher_id=num2).update(
+                feedback_homework=feedback_homework, feedback_comment=feedback_comment, isfeedback=isfeedback)
 
             return HttpResponse('成功反馈作业！')
     else:
         userform = UserForm_feedback_homework()
     return render_to_response('myApp/firstWeek/feedback_student_finishedhomework_html3.html', {'userform': userform})
 
-def check_feedback_homework(request, num):  #  老师查看反馈作业
-    studentnamelist = Homework1.objects.filter(homework_id=num)
-    studentList = Student.objects.all()
-    return render_to_response('myApp/firstWeek/check_feedback_homework.html', {'studentnamelist': studentnamelist,
-                                         'homework_id': num,'studentList':studentList})#'file_url':studentnamelist.feedback_homework.url})
 
-def check_redo_homework(request, num):  #  老师查看未订正学生名单
-    studentnamelist = Homework1.objects.filter(homework_id=num)
-    studentList = Student.objects.all()
+def check_feedback_homework(request, num, pindex):  # 老师查看反馈作业
+    studentnamelist = Homework1.objects.filter(homework_id=num).order_by('-id')
+    studentList = Student.objects.all().order_by('-id')
+    paginator = Paginator(studentnamelist, 5)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
+    return render_to_response('myApp/firstWeek/check_feedback_homework.html', {'studentnamelist': studentnamelist,
+                                                                               'homework_id': num,
+                                                                               'studentList': studentList,
+                                                                               "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
+
+
+def check_redo_homework(request, num, pindex):  # 老师查看未订正学生名单
+    studentnamelist = Homework1.objects.filter(homework_id=num).order_by('-id')
+    studentList = Student.objects.all().order_by('-id')
+    paginator = Paginator(studentnamelist, 5)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
     return render_to_response('myApp/firstWeek/check_redo_homework.html', {'studentnamelist': studentnamelist,
-                                                         'homework_id': num,'studentList':studentList})#'file_url':studentnamelist.feedback_homework.url})
+                                                                           'homework_id': num,
+                                                                           'studentList': studentList,
+                                                                           "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
+
+
+def check_not_submitted_homework(request, num, pindex):  # 老师查看未提交学生名单
+    studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
+    studentList = Student.objects.all().order_by('-id')
+    paginator = Paginator(studentnamelist, 5)  # 实例化Paginator, 每页显示5条数据
+    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+        pindex = 1
+    else:  # 如果有返回在值，把返回值转为整数型
+        int(pindex)
+    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
+    return render_to_response('myApp/firstWeek/check_not_submitted_homework.html', {'studentnamelist': studentnamelist,
+                                                                                    'homework_id': num,
+                                                                                    'studentList': studentList,
+                                                                                    "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
+
 
 @csrf_exempt
 def correct_feedback_homework(request, num1):  # 老师批改学生反馈内容
@@ -273,15 +375,11 @@ def correct_feedback_homework(request, num1):  # 老师批改学生反馈内容
             else:
                 homework1.iscorrect = homework1.isright
 
-            Homework1.objects.filter(pk=num1).update(isright=isright,iscorrect=homework1.iscorrect)
-
+            Homework1.objects.filter(pk=num1).update(isright=isright, iscorrect=homework1.iscorrect)
 
             return HttpResponse('成功批改反馈作业！')
     else:
         userform = UserForm_check_feedback_homework()
     return render_to_response('myApp/firstWeek/correct_feedback_homework.html',
-                                { 'file_url':homework1.feedback_homework.url,'userform': userform,'feedback_comment':homework1.feedback_comment})
-
-
-
-
+                              {'file_url': homework1.feedback_homework.url, 'userform': userform,
+                               'feedback_comment': homework1.feedback_comment})

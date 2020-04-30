@@ -51,12 +51,10 @@ class Homework(models.Model):  # 作业类
     homework_id = models.IntegerField()
     homework_content = models.CharField(max_length=50)
     homework_deadline = models.DateTimeField(max_length=20)
-    handIn_homework = models.FileField(null=True,upload_to='avatar')
+    handIn_homework = models.FileField(null=True, upload_to='avatar')
     handIn_time = models.DateTimeField(null=True, auto_now=False, auto_now_add=False)
     isLate = models.BooleanField(default=False)
     isComplete = models.BooleanField(default=False)
-
-
 
 
 class Notice_student(models.Model):  # 学生通知类
@@ -65,38 +63,46 @@ class Notice_student(models.Model):  # 学生通知类
     student_id = models.IntegerField()
     notice_content = models.CharField(max_length=50)
 
-class Teacher_homework(models.Model):  #老师作业类
+
+class Teacher_homework(models.Model):  # 老师作业类
     teacher_id = models.IntegerField()
     homework_content = models.CharField(max_length=50, default='1')
 
 
-class Homework1(models.Model):      #为避免上面的Homework类冗余数据过多，新建一个作业类，与上面的Homework类一一对应
+class Homework1(models.Model):  # 为避免上面的Homework类冗余数据过多，新建一个作业类，与上面的Homework类一一对应
     student_id = models.IntegerField()
     teacher_id = models.IntegerField()
     homework_id = models.IntegerField()
     iscorrect = models.NullBooleanField()
-    tcomment = models.CharField(max_length=200,default='待评论！')
+    tcomment = models.CharField(max_length=200, default='待评论！')
     iscommented = models.BooleanField(default=False)
     isComplete = models.BooleanField(default=False)
-    feedback_homework = models.FileField(null=True,upload_to='avatar')
-    feedback_comment = models.CharField(max_length=200,default='待评论！')
+    feedback_homework = models.FileField(null=True, upload_to='avatar')
+    feedback_comment = models.CharField(max_length=200, default='待评论！')
     isright = models.BooleanField(default=False)
     isfeedback = models.BooleanField(default=False)
 
-class objective_item(models.Model): #客观题
+
+class objective_item(models.Model):  # 客观题
     student_id = models.IntegerField()
     teacher_id = models.IntegerField()
     teacher_name = models.CharField(max_length=20)
     student_name = models.CharField(max_length=20)
-    item_content = models.CharField(max_length=200) #题目具体内容（后期可修改为文件）
-    item_num = models.IntegerField() #题目个数
-    answer = models.CharField(max_length=200) #标准答案
-    student_answer = models.CharField(null=True,max_length=200)
+    item_content = models.CharField(max_length=200)  # 题目具体内容（后期可修改为文件）
+    item_num = models.IntegerField()  # 题目个数
+    answer = models.CharField(max_length=200)  # 标准答案
+    student_answer = models.CharField(null=True, max_length=200)
     isComplete = models.BooleanField(default=False)
     homework_create_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     homework_deadline = models.DateTimeField(max_length=20)
     item_id = models.IntegerField(null=True)
+    handIn_time = models.DateTimeField(null=True, auto_now=False, auto_now_add=False)
+    isLate = models.BooleanField(default=False)
+    accuracy = models.FloatField(null=True)
 
-class objective_id(models.Model): #每道客观题和老师
+
+class objective_id(models.Model):  # 每道客观题和老师
     teacher_id = models.IntegerField()
     homework_create_time = models.DateTimeField(auto_now=False, auto_now_add=False)
+    item_content = models.CharField(max_length=200)
+    mean = models.FloatField(null=True)
