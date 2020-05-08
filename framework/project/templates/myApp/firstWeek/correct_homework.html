@@ -8,7 +8,9 @@
         html,body{text-align:center;margin:0px auto;}
 </style>
 <body>
-<img src="{{file_url}}" alt="作业">
+<a href="http://127.0.0.1:8000/login/download/{{file_name}}">
+    <button class="btn bg-danger">下载作业</button>
+</a>
 <form method = 'post' enctype="multipart/form-data">{% csrf_token %}
 {{userform.as_p}}
 <input type="submit" value = "添加评论" />

@@ -1,6 +1,5 @@
 from datetime import datetime
 from datetime import timedelta
-
 from django.core.paginator import Paginator
 from django.shortcuts import render, render_to_response
 from django import forms
@@ -21,6 +20,10 @@ class UserForm_launch_objective_item(forms.Form):  # 发布客观题表单
 
 class UserForm_submit_objective_item(forms.Form):  # 提交客观题表单
     student_answer = forms.CharField(label='提交客观题答案')
+
+
+class UserForm_search_teacher_objective(forms.Form):  # 搜索老师发布客观题表单
+    search_message = forms.CharField(label='客观题相关信息')
 
 
 @csrf_exempt
@@ -44,6 +47,7 @@ def launch_objective_item(request, num):  # 发布作业
                                                   "%Y-%m-%d %H:%M:%S")
 
             item_t = objective_id.objects.create(teacher_id=num, homework_create_time=create_time,
+                                                 homework_deadline=homework_deadline,
                                                  item_content=item_content)
             item_t.save()
 
@@ -70,7 +74,31 @@ def launch_objective_item(request, num):  # 发布作业
     return render_to_response('myApp/secondWeek/launch_objective_item.html', {'userform': userform})
 
 
-def teacher_check_objective_item(request, num, pindex):  # 老师查看作业
+@csrf_exempt
+def teacher_check_objective_item(request, num, pindex):  # 老师查看客观题
+    homeworkList_search = objective_id.objects.filter(teacher_id=num).order_by('-id')
+    searchList = []
+    flag = False
+    if request.method == 'POST':
+        userform = UserForm_search_teacher_objective(request.POST)
+        if userform.is_valid():
+            search_message = userform.cleaned_data['search_message']
+            for homework in homeworkList_search:
+                if search_message in str(homework.homework_create_time):
+                    flag = True
+                if search_message in homework.item_content:
+                    flag = True
+                if search_message in str(homework.homework_deadline):
+                    flag = True
+                if search_message in str(homework.pk):
+                    flag = True
+                homeworkList_tmp = objective_id.objects.filter(id=homework.pk)
+
+                if flag is True:
+                    searchList = chain(searchList, homeworkList_tmp)
+
+    else:
+        userform = UserForm_search_teacher_objective()
 
     homeworkList = objective_id.objects.filter(teacher_id=num).order_by('-id')
     objectList = objective_item.objects.all()
@@ -99,6 +127,9 @@ def teacher_check_objective_item(request, num, pindex):  # 老师查看作业
 
     page = paginator.page(pindex)  # 传递当前页的实例对象到前端
     return render_to_response('myApp/secondWeek/teacher_check_objective_item.html', {'homeworkList': homeworkList,
+                                                                                     'searchList': searchList,
+                                                                                     'flag': flag,
+                                                                                     'userform': userform,
                                                                                      'teacher_id': num,
                                                                                      "page": page,
                                                                                      'pindex1': pindex1})

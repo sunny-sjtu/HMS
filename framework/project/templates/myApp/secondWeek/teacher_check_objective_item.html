@@ -7,6 +7,32 @@
 <body>
 <h1>客观题作业列表</h1>
 <u1>
+
+<form method = 'post' enctype="multipart/form-data">
+        {{userform.as_p}}
+        <input type="submit" value = "搜索" />
+</form>
+
+{% if flag %}
+    {% for homework in searchList %}
+        <li>
+            <I>作业id：</I> {{homework.id}}
+            <I>作业发布时间：</I> {{homework.homework_create_time}}
+            <I>作业内容：</I> {{homework.item_content}}
+            <I>作业截止日期：</I> {{homework.homework_deadline}}
+            <I>平均正确率：</I> {{homework.mean}}
+        </li>
+
+                <a href="http://127.0.0.1:8000/login/18/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看已提交情况" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/18/1/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看未提交和迟交学生名单" />
+                </a>
+            <br>
+    {% endfor %}
+
+{% else %}
         {%for homework in page%}
         <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
         <li>
@@ -21,7 +47,7 @@
             <input type="submit" value = "查看未提交和迟交学生名单" />
         </a>
         {%endfor%}
-</u1>
+
 
 <nav aria-label="Page navigation">
 		<div class="pagination">
@@ -66,6 +92,7 @@
        		</ul>
 		</div>
  </nav>
-
+{% endif %}
+</u1>
 </body>
 </html>

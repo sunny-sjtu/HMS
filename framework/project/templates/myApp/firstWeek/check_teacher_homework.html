@@ -13,6 +13,47 @@
 <body>
 <h1>作业列表</h1>
 <u1>
+
+<form method = 'post' enctype="multipart/form-data">
+        {{userform.as_p}}
+        <input type="submit" value = "搜索" />
+</form>
+
+{% if flag %}
+
+    {% for homework in searchList %}
+
+        <li><I>作业发布时间：</I> {{homework.homework_create_time}}</li>
+        <li><I>作业内容：</I> {{homework.homework_content}}</li>
+        <li><I>作业截止日期：</I> {{homework.homework_deadline}}</li>
+
+                <a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "批改作业" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看未提交和迟交学生名单" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看所有反馈和订正情况" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看未订正学生名单" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+                    <input type="submit" value = "查看正确或订正正确且未迟交的学生名单" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+                    <input type="submit" value = "删除该作业" />
+                </a>
+                <a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+                    <input type="submit" value = "修改该作业的内容" />
+                </a>
+            <br>
+
+    {% endfor %}
+
+{% else %}
+
         {%for homework in page%}
     <li>
         <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
@@ -32,11 +73,15 @@
         <a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
             <input type="submit" value = "查看正确或订正正确且未迟交的学生名单" />
         </a>
+        <a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+            <input type="submit" value = "删除该作业" />
+        </a>
+        <a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+            <input type="submit" value = "修改该作业的内容" />
+        </a>
        <!--<input type="submit" value = "提交作业" /></a>-->
     </li>
         {%endfor%}
-</u1>
-
 
 <nav aria-label="Page navigation">
 		<div class="pagination">
@@ -82,5 +127,8 @@
 		</div>
  </nav>
 
+{% endif %}
+
+</u1>
 </body>
 </html>

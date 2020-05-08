@@ -67,6 +67,8 @@ class Notice_student(models.Model):  # 学生通知类
 class Teacher_homework(models.Model):  # 老师作业类
     teacher_id = models.IntegerField()
     homework_content = models.CharField(max_length=50, default='1')
+    homework_deadline = models.DateTimeField(max_length=20)
+    homework_create_time = models.DateTimeField(auto_now=False, auto_now_add=False)
 
 
 class Homework1(models.Model):  # 为避免上面的Homework类冗余数据过多，新建一个作业类，与上面的Homework类一一对应
@@ -77,10 +79,11 @@ class Homework1(models.Model):  # 为避免上面的Homework类冗余数据过�
     tcomment = models.CharField(max_length=200, default='待评论！')
     iscommented = models.BooleanField(default=False)
     isComplete = models.BooleanField(default=False)
-    feedback_homework = models.FileField(null=True, upload_to='avatar')
+    feedback_homework = models.FileField(null=True, upload_to='media')
     feedback_comment = models.CharField(max_length=200, default='待评论！')
     isright = models.BooleanField(default=False)
     isfeedback = models.BooleanField(default=False)
+    homework_content = models.CharField(max_length=50, default='1')
 
 
 class objective_item(models.Model):  # 客观题
@@ -104,5 +107,6 @@ class objective_item(models.Model):  # 客观题
 class objective_id(models.Model):  # 每道客观题和老师
     teacher_id = models.IntegerField()
     homework_create_time = models.DateTimeField(auto_now=False, auto_now_add=False)
+    homework_deadline = models.DateTimeField(max_length=20)
     item_content = models.CharField(max_length=200)
     mean = models.FloatField(null=True)

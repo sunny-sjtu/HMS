@@ -50,12 +50,6 @@ class UserForm_teacher_add_grade(forms.Form):  # 添加老师所教班级表单
     grade3 = forms.CharField(required=False, label='所教班级号3(非必填)', max_length=20)
 
 
-class UserForm_teacher_delete_grade(forms.Form):  # 删除老师所教班级表单
-    grade1 = forms.CharField(required=False, label='删除所教班级号1(非必填)', max_length=20)
-    grade2 = forms.CharField(required=False, label='删除所教班级号2(非必填)', max_length=20)
-    grade3 = forms.CharField(required=False, label='删除所教班级号3(非必填)', max_length=20)
-
-
 TeacherPassword = "12345678"  # 老师身份验证的密码
 
 
@@ -233,42 +227,19 @@ def add_teacher_grade(request, num):  # 添加老师所教班级
     return render_to_response('myApp/preparation/add_teacher_grade.html', {'userform': userform})
 
 
-@csrf_exempt
 def delete_teacher_grade(request, num):  # 删除老师所教班级
-    if request.method == 'POST':
-        userform = UserForm_teacher_delete_grade(request.POST)
-        if userform.is_valid():
-            grade1 = userform.cleaned_data['grade1']
-            grade2 = userform.cleaned_data['grade2']
-            grade3 = userform.cleaned_data['grade3']
-
-            teacher = Teacher.objects.get(pk=num)
-
-            flag = False
-
-            if grade1 != "":
-                Teacher_grade.objects.filter(grade=grade1, teacher_id=teacher.pk).delete()
-                flag = True
-
-            if grade2 != "":
-                Teacher_grade.objects.filter(grade=grade2, teacher_id=teacher.pk).delete()
-                flag = True
-
-            if grade3 != "":
-                Teacher_grade.objects.filter(grade=grade3, teacher_id=teacher.pk).delete()
-                flag = True
-
-            if flag:
-                return HttpResponse('成功删除所教班级！')
+    teacher_gradeList = Teacher_grade.objects.filter(pk=num)
+    if teacher_gradeList:
+        Teacher_grade.objects.filter(pk=num).delete()
+        return HttpResponse("成功删除该班级")
     else:
-        userform = UserForm_teacher_delete_grade()
-    return render_to_response('myApp/preparation/delete_teacher_grade.html', {'userform': userform})
+        return HttpResponse("未添加该班级")
 
 
 def check_gradelist(request, num):  # 老师查看所属班级
     gradelist = Teacher_grade.objects.filter(teacher_id=num)
 
-    return render_to_response('myApp/preparation/check_gradelist.html', {'gradelist': gradelist})
+    return render_to_response('myApp/preparation/check_gradelist.html', {'gradelist': gradelist, 'teacher_id': num})
 
 
 def check_studentlist(request, char):  # 老师查看所属班级学生信息

@@ -128,5 +128,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 #  MyProject.settings.py 里面设置MEDIA_ROOT and MEDIA_URL
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload_files')#即项目路径下的media文件夹，没有则自动创建
-MEDIA_URL = '/static/upload_files/' #这个是在浏览器上访问该上传文件的url的前缀
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media') #即项目路径下的media文件夹，没有则自动创建
+MEDIA_URL = '/static/media/' #这个是在浏览器上访问该上传文件的url的前缀
+

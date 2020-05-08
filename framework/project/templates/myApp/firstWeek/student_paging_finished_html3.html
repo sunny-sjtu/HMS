@@ -53,11 +53,11 @@
 
 
                                     {% if homework1.iscorrect == False %}
-                                      <a href="http://127.0.0.1:8000/login/14/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">
+                                      <a href="http://127.0.0.1:8000/login/14/1/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">
                                       <input type="submit" value = "提交订正" />
                                       </a>
                                     {% elif homework1.iscorrect == True %}
-                                      <a href="http://127.0.0.1:8000/login/14/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">
+                                      <a href="http://127.0.0.1:8000/login/14/1/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">
                                       <input type="submit" value = "进行反馈" />
                                       </a>
                                     {% endif %}
