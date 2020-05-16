@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,143 +12,155 @@
 
 </head>
 <style>
-        html,body{text-align:center;margin:0px auto;}
+    html,
+    body {
+        text-align: center;
+        margin: 0px auto;
+    }
 </style>
+
 <body>
-<div class="container">
-<h1>作业列表</h1>
-<u1>
+    <div class="container">
+        <h1>作业列表</h1>
+        <u1>
 
-<form method = 'post' enctype="multipart/form-data">
-        {{userform.as_p}}
-        <input type="submit" value = "搜索" />
-</form>
+            <form method='post' enctype="multipart/form-data">
+                {{userform.as_p}}
+                <input type="submit" value="搜索" />
+            </form>
 
-{% if flag %}
+            {% if flag %}
 
-<div class="nav">
-    <ul>
+            <div class="nav">
+                <ul>
 
-        {%for homework in searchList%}
-        <div class="box1">
-            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
-    <li>
-            <a class="text1" href=#>详情</a>
-        <ul>
-        <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
-            批改作业
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
-            查看迟交学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
-            查看反馈情况
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
-           查看未订正学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
-            查看已完成学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
-            删除该作业
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
-            修改该作业
-        </a></li>
-       </ul>
-    </li>
-    </div>
-        {%endfor%}
-    </ul>
-    
-
-{% else %}
-    <div class="nav">
-    <ul>
-
-        {%for homework in page%}
-        <div class="box1">
-            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
-    <li>
-            <a href=# class="text1">详情</a>
-        <ul>
-        <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
-            批改作业
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
-            查看迟交学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
-            查看反馈情况
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
-           查看未订正学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
-            查看已完成学生
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
-            删除该作业
-        </a></li>
-        <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
-            修改该作业
-        </a></li>
-       </ul>
-    </li>
-    </div>
-        {%endfor%}
-    </ul>
-    </div>
-    </div>
-
-<nav aria-label="Page navigation">
-		<div class="pagination">
-			<ul class="pagination">
-			{% if page.has_previous %}
-				<li>
-                    <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.previous_page_number}}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            {% else %}
-                <li class="disabled">
-                    <a href="" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            {% endif %}
+                    {%for homework in searchList%}
+                    <div class="box1">
+                        <dt class="title1">作业内容：{{homework.homework_content}}</dt>
+                        <li>
+                            <a class="text1" href=#>详情</a>
+                            <ul>
+                                <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+                                        批改作业
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+                                        查看迟交学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+                                        查看反馈情况
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+                                        查看未订正学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+                                        查看已完成学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+                                        删除该作业
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+                                        修改该作业
+                                    </a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    {%endfor%}
+                </ul>
 
 
-            {% for num in page.paginator.page_range %}
-            	{% if pindex == page.number %}
-                	<li class="active"><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
                 {% else %}
-                    <li><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
-                {% endif %}
-            {% endfor %}
+                <div class="nav">
+                    <ul>
+
+                        {%for homework in page%}
+                        <div class="box1">
+                            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
+                            <li>
+                                <a href=# class="text1">详情</a>
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+                                            批改作业
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+                                            查看迟交学生
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+                                            查看反馈情况
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+                                            查看未订正学生
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+                                            查看已完成学生
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+                                            删除该作业
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+                                            修改该作业
+                                        </a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+
+            <div id="footer">
+                <nav aria-label="Page navigation">
+                    <div class="pagination">
+                        <ul class="pagination">
+                            {% if page.has_previous %}
+                            <li>
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.previous_page_number}}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <a href="" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
 
 
-            {% if page.has_next %}
-                 <li>
-                     <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.next_page_number}}" aria-label="Next">
-                         <span aria-hidden="true">&raquo;</span>
-                     </a>
-                 </li>
-            {% else %}
-                 <li class="disabled">
-                     <a href="" aria-label="Previous">
-                         <span aria-hidden="true">&raquo;</span>
-                     </a>
-                 </li>
+                            {% for num in page.paginator.page_range %}
+                            {% if num == page.number %}
+                            <li class="active">
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                            {% else  %}
+                            <li><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            {% if page.has_next %}
+                            <li>
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.next_page_number}}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <a href="" aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
             {% endif %}
-       		</ul>
-		</div>
- </nav>
 
-{% endif %}
-
-</u1>
-</div>
+        </u1>
+    </div>
 </body>
+
 </html>

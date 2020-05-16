@@ -59,9 +59,10 @@
                                   {% endif %}
                                 
                                     {% if homework1.iscorrect == False %}
-                                      <a class="btn" href="http://127.0.0.1:8000/login/14/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}}">提交订正</a>
+                                      <a class="btn" href="http://127.0.0.1:8000/login/14/1/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}}">提交订正</a>
                                     {% elif homework1.iscorrect == True %}
-                                      <a class="btn" href="http://127.0.0.1:8000/login/14/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">进行反馈</a>
+                                      <li><span class="tips">作业正确，可以通过反馈和老师交流</span></li>
+                                      <a class="btn" href="http://127.0.0.1:8000/login/14/1/1/{{homework1.student_id}}/{{homework.teacher_id}}/{{homework1.pk}} ">进行反馈</a>
                                     {% endif %}
                               {% elif homework1.iscommented == False %}
                                    <li><span class="tips">老师尚未批改，可以重新提交</span></li>
@@ -97,7 +98,7 @@
 
 
             {% for num in page.paginator.page_range %}
-            	{% if pindex == page.number %}
+            	{% if num == page.number %}
                 	<li class="active"><a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{num}}">{{ num }}</a></li>
                 {% else %}
                     <li><a href="http://127.0.0.1:8000/login/14/{{student_id}}/{{teacher_id}}/{{num}}">{{ num }}</a></li>
