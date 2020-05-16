@@ -4,6 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <link rel="stylesheet" href="../../../../static/css/showStudent.css" type="text/css">
     <title>学生列表</title>
 
 </head>
@@ -13,24 +14,28 @@
 <body>
 <h1>记得批改作业哦~</h1>
 <u1>
+    <table border="1" cellspacing="0" cellpadding="20">
+        <tr>
+            <th>姓名</th>
+            <th>提交时间</th>
+            <th>查看作业</th>
+        </tr>
         {%for homework in page%}
         {% if homework.isComplete == True %}
              {%for homework1 in homework1List %}
                    {% if homework1.id == homework.id%}
                          {% if homework1.iscommented == False %}
-                            <li>
-                                <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
-                                {{homework.student_name}}
-                                <a href="http://127.0.0.1:8000/login/10/{{homework.id}}">
-                                    <input type="submit" value = "查看该学生作业并批改" />
-                                </a>
-                                <!--<input type="submit" value = "提交作业" /></a>-->
-                            </li>
+                            <tr>
+                                <td class="name">{{homework.student_name}}</td>
+                                <td>{{homework.handIn_time}}</td>
+                                <td><a class="btn" href="http://127.0.0.1:8000/login/10/{{homework.id}}">查看该学生作业并批改</a></td>
+                            </tr>
                          {% endif %}
                    {% endif %}
              {%endfor%}
         {% endif %}
         {%endfor%}
+    </table>
 </u1>
 
 

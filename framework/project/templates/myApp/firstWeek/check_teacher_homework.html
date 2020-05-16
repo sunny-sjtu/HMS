@@ -4,6 +4,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../../static/css/tableShow.css" type="text/css">
     <title>作业列表</title>
 
 </head>
@@ -11,6 +15,7 @@
         html,body{text-align:center;margin:0px auto;}
 </style>
 <body>
+<div class="container">
 <h1>作业列表</h1>
 <u1>
 
@@ -21,67 +26,81 @@
 
 {% if flag %}
 
-    {% for homework in searchList %}
+<div class="nav">
+    <ul>
 
-        <li><I>作业发布时间：</I> {{homework.homework_create_time}}</li>
-        <li><I>作业内容：</I> {{homework.homework_content}}</li>
-        <li><I>作业截止日期：</I> {{homework.homework_deadline}}</li>
-
-                <a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "批改作业" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看未提交和迟交学生名单" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看所有反馈和订正情况" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看未订正学生名单" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看正确或订正正确且未迟交的学生名单" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
-                    <input type="submit" value = "删除该作业" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
-                    <input type="submit" value = "修改该作业的内容" />
-                </a>
-            <br>
-
-    {% endfor %}
+        {%for homework in searchList%}
+        <div class="box1">
+            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
+    <li>
+            <a class="text1" href=#>详情</a>
+        <ul>
+        <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+            批改作业
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+            查看迟交学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+            查看反馈情况
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+           查看未订正学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+            查看已完成学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+            删除该作业
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+            修改该作业
+        </a></li>
+       </ul>
+    </li>
+    </div>
+        {%endfor%}
+    </ul>
+    
 
 {% else %}
+    <div class="nav">
+    <ul>
 
         {%for homework in page%}
+        <div class="box1">
+            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
     <li>
-        <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
-            {{homework.homework_content}}
-        <a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "批改作业" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看未提交和迟交学生名单" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看所有反馈和订正情况" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看未订正学生名单" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看正确或订正正确且未迟交的学生名单" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
-            <input type="submit" value = "删除该作业" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
-            <input type="submit" value = "修改该作业的内容" />
-        </a>
-       <!--<input type="submit" value = "提交作业" /></a>-->
+            <a href=# class="text1">详情</a>
+        <ul>
+        <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+            批改作业
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+            查看迟交学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+            查看反馈情况
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+           查看未订正学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+            查看已完成学生
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+            删除该作业
+        </a></li>
+        <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+            修改该作业
+        </a></li>
+       </ul>
     </li>
+    </div>
         {%endfor%}
+    </ul>
+    </div>
+    </div>
 
 <nav aria-label="Page navigation">
 		<div class="pagination">
@@ -130,5 +149,6 @@
 {% endif %}
 
 </u1>
+</div>
 </body>
 </html>

@@ -343,6 +343,7 @@ def check_common_student_the_homework(request, num, pindex):  # 老师查看正�
 
     studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
     homework1List = Homework1.objects.all()
+    studentList = Student.objects.all()
     paginator = Paginator(studentnamelist, 1)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
@@ -352,7 +353,8 @@ def check_common_student_the_homework(request, num, pindex):  # 老师查看正�
     return render_to_response('myApp/firstWeek/check_common_student_the_homework.html',
                               {'studentnamelist': studentnamelist,
                                'homework_id': num, "page": page,
-                               'homework1List': homework1List})
+                               'homework1List': homework1List,
+                               'studentList': studentList})
 
 
 @csrf_exempt

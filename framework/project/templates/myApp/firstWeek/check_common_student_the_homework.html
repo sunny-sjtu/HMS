@@ -4,6 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <link rel="stylesheet" href="../../../../../static/css/showStudent.css" type="text/css">
     <title>学生列表</title>
 
 </head>
@@ -12,23 +13,34 @@
 </style>
 <body>
 <h1>正确或订正正确且未迟交的学生列表</h1>
-<u1>
+<div >
+    <table border="1" cellspacing="0" cellpadding="15">
+        <tr class="onlyname">
+            <th>姓名</th>
+            <th>班级</th>
+        </tr>
         {%for homework in studentnamelist%}
         {% if homework.isLate == False %}
              {%for homework1 in homework1List %}
                    {% if homework1.id == homework.id%}
                          {% if homework1.iscorrect == True %}
-                            <li>
-                                <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
-                                {{homework.student_name}}
-                                <!--<input type="submit" value = "提交作业" /></a>-->
-                            </li>
+                            <tr class="onlyname">
+                                
+                                <td class="name">{{homework.student_name}}</td>
+                                {%for student in studentList%}
+                                   {%if student.sname == homework.student_name%}
+                                      <td>{{student.sgrade}}</td>
+                                    {% endif %}
+                                {%endfor%}
+                               
+                            </tr>
                          {% endif %}
                    {% endif %}
              {%endfor%}
         {% endif %}
         {%endfor%}
-</u1>
+    </table>
+</div>
 
 <nav aria-label="Page navigation">
 		<div class="pagination">

@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../../static/css/tableShow.css" type="text/css">
     <title>客观题列表</title>
 </head>
+<style>
+    html,body{text-align:center;margin:0px auto;}
+</style>
 <body>
 <h1>客观题作业列表</h1>
 <u1>
@@ -14,40 +23,46 @@
 </form>
 
 {% if flag %}
+<div class="nav">
+    <ul>
     {% for homework in searchList %}
+    <div class="box1">
+        
+        
+        <dt class="title1">作业内容：{{homework.item_content}}</dt><br><dt class="tips">平均正确率：{{homework.mean}}</dt>
+        
         <li>
-            <I>作业id：</I> {{homework.id}}
-            <I>作业发布时间：</I> {{homework.homework_create_time}}
-            <I>作业内容：</I> {{homework.item_content}}
-            <I>作业截止日期：</I> {{homework.homework_deadline}}
-            <I>平均正确率：</I> {{homework.mean}}
+        <a class="text1" href=#>详情</a>
+        <ul>
+        <li><a href="http://127.0.0.1:8000/login/18/{{homework.id}}/{{pindex1}}">查看已提交情况</li></a>
+        <li><a href="http://127.0.0.1:8000/login/18/1/{{homework.id}}/{{pindex1}}">查看未提交和迟交学生</li></a>
+        </ul>
         </li>
-
-                <a href="http://127.0.0.1:8000/login/18/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看已提交情况" />
-                </a>
-                <a href="http://127.0.0.1:8000/login/18/1/{{homework.id}}/{{pindex1}}">
-                    <input type="submit" value = "查看未提交和迟交学生名单" />
-                </a>
-            <br>
+        </div>
     {% endfor %}
+    </ul>
+</div>
 
 {% else %}
+<div class="nav">
+    <ul>
         {%for homework in page%}
-        <!--<a href="{{homework.student_id}}/{{homework.id}}">-->
+        <div class="box1">
+        
+        
+        <dt class="title1">作业内容：{{homework.item_content}}</dt><br><dt class="tips">平均正确率：{{homework.mean}}</dt>
+        
         <li>
-            <I>作业布置时间：</I> {{homework.homework_create_time}}
-            <I>作业布置内容：</I> {{homework.item_content}}
-            <I>平均正确率：</I> {{homework.mean}}
+        <a class="text1" href=#>详情</a>
+        <ul>
+        <li><a href="http://127.0.0.1:8000/login/18/{{homework.id}}/{{pindex1}}">查看已提交情况</li></a>
+        <li><a href="http://127.0.0.1:8000/login/18/1/{{homework.id}}/{{pindex1}}">查看未提交和迟交学生</li></a>
+        </ul>
         </li>
-        <a href="http://127.0.0.1:8000/login/18/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看已提交情况" />
-        </a>
-        <a href="http://127.0.0.1:8000/login/18/1/{{homework.id}}/{{pindex1}}">
-            <input type="submit" value = "查看未提交和迟交学生名单" />
-        </a>
+        </div>
         {%endfor%}
-
+    </ul>
+</div>
 
 <nav aria-label="Page navigation">
 		<div class="pagination">

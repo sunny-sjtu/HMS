@@ -4,6 +4,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+
+    <link rel="stylesheet" href="../../../../../static/css/tableShow3.css" type="text/css"> 
     <title>作业分类列表_未提交客观题</title>
 
 </head>
@@ -12,21 +14,26 @@
 </style>
 <body>
 <h1></h1>
-<h2>详细客观题列表(按发布时间排序)</h2>
-<u1>
+<h2>详细客观题列表</h2>
+    
+    <ul class="choice-table">
+        <li><a href="http://127.0.0.1:8000/login/22/{{student_id}}/{{teacher_id}}/1">按截止时间排序</a></li>
+        <li><a href="http://127.0.0.1:8000/login/22/1/{{student_id}}/{{teacher_id}}/1"><span class="current">按发布时间排序</span></a></li>
+    </ul>
+
+<u1 class="showHomework">
         {% for objective in page %}
+        <div class="box1">
         <tr>
-            <li>客观题内容：{{objective.item_content}}</li>
+            <li><div class="head1">客观题内容：{{objective.item_content}}</div></li>
             <li>发布时间：{{objective.homework_create_time}}</li>
             <li>截止时间：{{objective.homework_deadline}}</li>
         </tr>
-
-        <a href="http://127.0.0.1:8000/login/20/{{objective.id}}"><input type="submit" value = "提交客观题" /></a>
-        <pre></pre>
+        <a class="btn" href="http://127.0.0.1:8000/login/20/{{objective.id}}">提交作业</a>
+        </div>
         {% endfor %}
 
-        <a href="http://127.0.0.1:8000/login/22/{{student_id}}/{{teacher_id}}/1"><input type="submit" value = "截止时间排序" /></a>
-        <a href="http://127.0.0.1:8000/login/22/1/{{student_id}}/{{teacher_id}}/1"><input type="submit" value = "发布时间排序" /></a>
+        
 
 </u1>
 

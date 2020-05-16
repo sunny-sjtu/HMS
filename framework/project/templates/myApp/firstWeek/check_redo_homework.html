@@ -4,6 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <link rel="stylesheet" href="../../../../../static/css/showStudent.css" type="text/css">
     <title>未订正学生名单</title>
 
 </head>
@@ -13,22 +14,29 @@
 <body>
 <h1>未订正学生名单</h1>
 <u1>
+    <table border="1" cellspacing="0" cellpadding="15">
+        <tr>
+            <th>姓名</th>
+            <th>班级</th>
+        </tr>
         {%for homework1 in page%}
 
            {%if homework1.iscorrect == False %}
-        <li>
+        
                 {% if homework1.isfeedback == False %}
                   {%for student in studentList%}
                           {%if homework1.student_id == student.id%}
-                          学生姓名： {{student.sname}}
+                    <tr>
+                          <td class="name">{{student.sname}}</td>
+                          <td>{{student.sgrade}}</td>
+                    </tr>
                           {%endif%}
-                          <pre></pre>
                  {%endfor%}
                  {%endif%}
-           <pre></pre>
-        </li>
+           
           {%endif%}
          {%endfor%}
+    </table>
 
 </u1>
 
