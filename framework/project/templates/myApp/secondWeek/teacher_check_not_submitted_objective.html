@@ -4,7 +4,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <link rel="stylesheet" href="../../../../static/css/showStudent.css" type="text/css">
     <title>未提交或迟交客观题学生名单</title>
 
 </head>
@@ -13,38 +12,34 @@
 </style>
 <body>
 <h1>未提交或迟交客观题学生名单</h1>
-<u1>
-    <table border="1" cellspacing="0" cellpadding="20">
-        <tr>
-            <th>姓名</th>
-            <th>完成情况</th>
-            <th>正确答案</th>
-            <th>学生答案</th>
-            <th>正确率</th>
-        </tr>
+<u1><pre></pre>
         {%for homework in page%}
 
            {%if homework.isComplete == False %}
-           <tr>
-               <td class="name">{{homework.student_name}}</td>
-               <td>未提交</td>
-               <td class="fixed">{{homework.answer}}</td>
-               <td class="fixed">/</td>
-               <td>/</td>
-           </tr>
+           <li>
+               未提交：
+               {%for student in studentList%}
+                          {%if homework.student_id == student.id%}
+                          学生姓名： {{student.sname}}
+                          {%endif%}
+                          <pre></pre>
+               {%endfor%}
+           <pre></pre>
+            </li>
           {%endif%}
 
             {%if homework.isLate == True %}
-            <tr>
-               <td class="name">{{homework.student_name}}</td>
-               <td>迟交</td>
-               <td class="fixed">{{homework.answer}}</td>
-               <td class="fixed">{{homework.student_answer}}</td>
-               <td>{{homework.accuracy}}</td>
-            </tr>
+            <li>迟交：
+               {%for student in studentList%}
+                          {%if homework.student_id == student.id%}
+                          学生姓名： {{student.sname}}
+                          {%endif%}
+                          <pre></pre>
+               {%endfor%}
+           <pre></pre>
+            </li>
           {%endif%}
         {%endfor%}
-    </table>
 
 </u1>
 
@@ -67,7 +62,7 @@
 
 
             {% for num in page.paginator.page_range %}
-            	{% if num == page.number %}
+            	{% if pindex == page.number %}
                 	<li class="active"><a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{num}}">{{ num }}</a></li>
                 {% else %}
                     <li><a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{num}}">{{ num }}</a></li>

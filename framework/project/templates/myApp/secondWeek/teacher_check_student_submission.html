@@ -2,33 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../../../static/css/showStudent.css" type="text/css">
     <title>学生列表</title>
 </head>
-<style>
-    html,body{text-align:center;margin:0px auto;}
-</style>
 <body>
 <h1>学生完成情况</h1>
 <u1>
-    <table border="1" cellspacing="0" cellpadding="15">
-        <tr>
-            <th>姓名</th>
-            <th>正确答案</th>
-            <th>学生答案</th>
-            <th>正确率</th>
-        </tr>
         {%for homework in page%}
              {% if homework.isComplete == True and homework.isLate == False%}
-             <tr>
-                  <td class="name">{{homework.student_name}}</td>
-                  <td class="fixed">{{homework.answer}}</td>
-                  <td class="fixed">{{homework.student_answer}}</td>
-                  <td>{{homework.accuracy}}</td>
-             </tr>
+             <li>
+                  <I>学生姓名：</I> {{homework.student_name}}
+                  <I>正确答案：</I> {{homework.answer}}
+                  <I>学生答案：</I> {{homework.student_answer}}
+                  <I>正确率：</I> {{homework.accuracy}}
+             </li>
              {% endif %}
         {%endfor%}
-    </table>
 </u1>
 
 <nav aria-label="Page navigation">
@@ -50,7 +38,7 @@
 
 
             {% for num in page.paginator.page_range %}
-            	{% if num == page.number %}
+            	{% if pindex == page.number %}
                 	<li class="active"><a href="http://127.0.0.1:8000/login/18/{{item_id}}/{{num}}">{{ num }}</a></li>
                 {% else %}
                     <li><a href="http://127.0.0.1:8000/login/18/{{item_id}}/{{num}}">{{ num }}</a></li>

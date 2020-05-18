@@ -137,7 +137,7 @@ def check_teacher_info(request, num):  # 查看老师个人信息
     user = User.objects.get(username=teacher.sname)
     teacher_grade_List = Teacher_grade.objects.filter(teacher_id=teacher.pk)
     return render_to_response('myApp/preparation/check_teacher_info.html',
-                              {'teacher': teacher, 'user': user, 'teacher_grade_List': teacher_grade_List})
+                              {'teacher': teacher, 'user': user, 'teacher_grade_List': teacher_grade_List,'teacher_id':num})
 
 
 def check_student_info(request, num):  # 查看学生个人信息
@@ -164,7 +164,7 @@ def alter_teacher_info(request, num):  # 修改老师个人信息
             return HttpResponse('成功修改老师信息！')
     else:
         userform = UserForm_teacher()
-    return render_to_response('myApp/preparation/alter_teacher_info.html', {'userform': userform})
+    return render_to_response('myApp/preparation/alter_teacher_info.html', {'userform': userform, 'teacher_id': num})
 
 
 @csrf_exempt
@@ -186,7 +186,7 @@ def alter_student_info(request, num):  # 修改学生个人信息
             return HttpResponse('成功修改学生信息！')
     else:
         userform = UserForm_student()
-    return render_to_response('myApp/preparation/alter_student_info.html', {'userform': userform})
+    return render_to_response('myApp/preparation/alter_student_info.html', {'userform': userform, 'studentId': num})
 
 
 @csrf_exempt

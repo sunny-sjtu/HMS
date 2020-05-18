@@ -71,7 +71,7 @@ def launch_objective_item(request, num):  # 发布作业
             return HttpResponse('成功发布客观题作业！')
     else:
         userform = UserForm_launch_objective_item()
-    return render_to_response('myApp/secondWeek/launch_objective_item.html', {'userform': userform})
+    return render_to_response('myApp/secondWeek/launch_objective_item.html', {'userform': userform, 'teacher_id': num})
 
 
 @csrf_exempt

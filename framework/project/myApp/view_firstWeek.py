@@ -95,7 +95,7 @@ def launch_homework(request, num):  # 发布作业
             return HttpResponse('成功发布作业！')
     else:
         userform = UserForm_launch_homework()
-    return render_to_response('myApp/firstWeek/launch_homework.html', {'userform': userform})
+    return render_to_response('myApp/firstWeek/launch_homework.html', {'userform': userform, 'teacher_id': num})
 
 
 @csrf_exempt
@@ -301,7 +301,7 @@ def check_teacher_homework(request, num, pindex):  # 老师查看作业
     pindex1 = 1
     page = paginator.page(pindex)
 
-    return render_to_response('myApp/firstWeek/check_teacher_homework.html', {'homeworkList': homeworkList,
+    return render_to_response('myApp/firstWeek/check_teacher_homework.html', {'pindex0': pindex, 'homeworkList': homeworkList,
                                                                               'searchList': searchList,
                                                                               'flag': flag,
                                                                               'teacher_id': num, "page": page,
@@ -343,7 +343,6 @@ def check_common_student_the_homework(request, num, pindex):  # 老师查看正�
 
     studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
     homework1List = Homework1.objects.all()
-    studentList = Student.objects.all()
     paginator = Paginator(studentnamelist, 1)  # 实例化Paginator, 每页显示5条数据
     if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
         pindex = 1
@@ -353,8 +352,7 @@ def check_common_student_the_homework(request, num, pindex):  # 老师查看正�
     return render_to_response('myApp/firstWeek/check_common_student_the_homework.html',
                               {'studentnamelist': studentnamelist,
                                'homework_id': num, "page": page,
-                               'homework1List': homework1List,
-                               'studentList': studentList})
+                               'homework1List': homework1List})
 
 
 @csrf_exempt
