@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" href="../../../../static/css/showStudent.css" type="text/css">
+    <title>该班级学生信息</title>
+
+</head>
+<style>
+        html,body{text-align:center;margin:0px auto;}
+</style>
+<body>
+<h1>该班级学生情况如下：</h1>
+<u1>
+    <table border="1" cellspacing="0" cellpadding="20">
+        <tr>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>邮箱</th>
+        </tr>
+        {%for Student in studentlist%}
+             <tr>
+                 <td class="name">{{Student.sname}}</td>
+                 <td>{% if Student.sgender == False %}
+                         女
+                     {% elif Student.sgender == True %}
+                         男
+                     {% endif %}</td>
+                 <td>{{Student.sage}}</td>
+                 <td>{{Student.semail}}</td>
+              </tr>
+        {%endfor%}
+    </table>
+</u1>
+
+</body>
+</html>

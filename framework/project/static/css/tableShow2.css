@@ -1,0 +1,35 @@
+body{
+    background-color: rgb(242,242,242);
+}
+
+li{
+    list-style: none;
+}
+
+.content1{
+    margin-top: 20px;
+}
+
+.teacher_box{
+    display: block;
+    background-color:#fff;
+    border-bottom-color:rgb(238,238,238);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    height: 80px;
+    text-decoration: none;
+    padding-top: 30px;
+    width: 830px;
+    z-index:1;
+}
+
+a:hover{
+    background-color: rgba(234, 255, 237, 0.925);
+}
+
+.teacher_info{
+    font-family: Microsoft YaHei, Hiragino Sana GB, san-serif;
+    font-size:16px;
+    font-weight: bold;
+    color:rgb(51,51,51);
+}

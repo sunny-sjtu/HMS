@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../../static/css/tableShow_change1.css" type="text/css">
+    <title>作业列表</title>
+
+</head>
+<style>
+    html,body{text-align:center;margin:0px auto;}
+		    *{padding: 0;margin: 0;}  /* 先重置一下html，消除HTML标签默认的内外边距 */
+		    .wrap{width: 1920px;margin: 0 auto ;}    /* 对导航的内容设置一个主体为800px的宽并使其居中 */
+		    .clear{clear: both;}  /* 清除浮动 */
+		    a{text-decoration-line: none;}   /* 去掉默认a标签的下划线 */
+		    ul,li{list-style: none;}
+		    nav .level>li{float: left;width: 16.66%;text-align: center;background: #a7abff;padding: 10px 0;font-size: 16px;transition: .4s;}
+
+		    nav .level>li:hover{background-color: #9ba78c;color: #FFFFFF;}   /* 设置鼠标滑过后的样式 */
+		    nav .level>li>a:hover{color: #FFFFFF;}
+		    nav .two{display: none;margin-top: 10px;}  /* 先使二级菜单的内容隐藏 */
+		    nav .level>li:hover .two{display: block;}   /* 鼠标滑过一级菜单后的显示二级菜单 */
+		    nav .two>li>a{color: rgb(85,26,139);}
+		    nav .two li{padding: 5px 0;transition: .4s;cursor: pointer;}
+		    nav .two li:hover{background: pink;}
+            nav .two>li>a:hover{color: #FFFFFF;}
+            nav{z-index:100;}
+            html,body{text-align:center;margin:0px auto;}
+            .aaa{position: absolute;
+            left: 22%;
+            top : 10%;}
+</style>
+
+<body>
+<nav>
+	        <div class="wrap">
+	            <ul class="level">
+	                <li style="background-color: #a7abff;color: black;
+	                font-family:Arial, Helvetica, sans-serif;color:#5f5f5f;
+      				text-transform:uppercase">ㄟ(≧◇≦)ㄏ 欢迎来到你的个人空间~  ㄟ(≧◇≦)ㄏ</li>
+					<li ><a href="#">首页</a></li>
+	                <li>
+	                    <a href="#">班级</a>
+	                    <ul class="two">
+	                        <li><a href="http://127.0.0.1:8000/login/11/{{teacher_id}}">查看所教班级</a></li>
+
+	                    </ul>
+	                </li>
+	                <li>
+	                    <a href="#">个人信息</a>
+	                    <ul class="two">
+	                        <li><a href="http://127.0.0.1:8000/login/{{teacher_id}}">查看个人信息</a></li>
+	                        <li><a href="http://127.0.0.1:8000/login/0/{{teacher_id}}">修改个人信息</a></li>
+	                    </ul>
+	                </li>
+                    <li>
+	                    <a style="color: white" href="#">作业</a>
+	                    <ul class="two">
+	                        <li><a href="http://127.0.0.1:8000/login/5/{{teacher_id}}">发布主观题作业</a></li>
+	                        <li><a href="http://127.0.0.1:8000/login/16/{{teacher_id}}">发布客观题作业</a></li>
+                            <li><a style="color: white" href="">查看主观题</a> </li>
+                            <li><a href="http://127.0.0.1:8000/login/17/{{teacher_id}}/1">查看客观题</a> </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
+</nav>
+<div class="aaa">
+    <div class="container">
+        <div class="login-container">
+	    <h1>查询作业情况</h1>
+
+        <form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+            <div>
+			    <input type="text"  id="input_listForm" name="search_message" class="search_message" placeholder="请输入相关关键字" oncontextmenu="return false" onpaste="return false" />
+	        </div>
+            <input type="submit" id="input_listForm1" class="register-tis" value = "搜索" />
+            <br>
+            <br>
+            {% if flag is False %}
+                {% if flag1 %}
+                    没有查询到相关作业
+                {% endif %}
+            {% endif %}
+            {% if flag %}
+                {% if flag1 %}
+                    查询作业结果如下
+                {% endif %}
+            {% endif %}
+        </form>
+        </div>
+
+        <div style="margin-top: 30px"></div>
+            {% if flag %}
+
+            <div class="nav">
+                <ul>
+
+                    {%for homework in searchList%}
+
+                    <div class="box1">
+
+                        <dt class="title1">作业内容：{{homework.homework_content}}</dt>
+                        <li>
+                            <a class="text1" href=#>详情</a>
+                            <ul>
+                                <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+                                        批改作业
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+                                        查看迟交学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+                                        查看反馈情况
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+                                        查看未订正学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+                                        查看已完成学生
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+                                        删除该作业
+                                    </a></li>
+                                <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+                                        修改该作业
+                                    </a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    {%endfor%}
+                </ul>
+
+
+                {% else %}
+                <div class="nav">
+                    <ul>
+
+                        {%for homework in page%}
+                        <div class="box1">
+                            <dt class="title1">作业内容：{{homework.homework_content}}</dt>
+                            <li>
+                                <a href=# class="text1">详情</a>
+                                <ul>
+                                    <li><a href="http://127.0.0.1:8000/login/24/{{homework.id}}/{{pindex1}}">
+                                            查看学生作业情况
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/9/2/{{homework.id}}/{{pindex1}}">
+                                            批改作业
+                                        </a></li>
+                                 <!--   <li><a href="http://127.0.0.1:8000/login/9/1/2/{{homework.id}}/{{pindex1}}">
+                                            查看迟交学生
+                                        </a></li>  -->
+                                    <li><a href="http://127.0.0.1:8000/login/9/{{homework.id}}/{{pindex1}}">
+                                            查看反馈情况
+                                        </a></li>
+                                 <!--    <li><a href="http://127.0.0.1:8000/login/9/1/1/{{homework.id}}/{{pindex1}}">
+                                            查看未订正学生
+                                        </a></li>  -->
+                                 <!--   <li><a href="http://127.0.0.1:8000/login/9/2/2/{{homework.id}}/{{pindex1}}">
+                                            查看已完成学生
+                                        </a></li>  -->
+                                    <li><a href="http://127.0.0.1:8000/login/8/1/2/{{homework.id}}">
+                                            删除该作业
+                                        </a></li>
+                                    <li><a href="http://127.0.0.1:8000/login/8/1/1/{{homework.id}}">
+                                            修改该作业
+                                        </a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+            <div id="footer">
+                <nav aria-label="Page navigation">
+                    <div class="pagination">
+                        <ul class="pagination">
+                            {% if page.has_previous %}
+                            <li>
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.previous_page_number}}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <a href="" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+
+                            {% for num in page.paginator.page_range %}
+                            {% if num == page.number %}
+                            <li class="active">
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a></li>
+                            {% else  %}
+                            <li><a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{num}}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            {% if page.has_next %}
+                            <li>
+                                <a href="http://127.0.0.1:8000/login/8/{{teacher_id}}/{{page.next_page_number}}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <a href="" aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            {% endif %}
+
+        </u1>
+    </div>
+</div>
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/supersized-init.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+body{
+    margin: 80%;
+    background-color: rgb(242,242,242);
+}
+
+.choice-table ul li{
+    display: list-item;
+    float: left;
+    border-right-color: rgb(230,230,230);
+    border-right-style: solid;
+    border-right-width: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+

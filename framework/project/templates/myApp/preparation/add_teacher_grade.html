@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>添加所教班级</title>
+
+<link rel="stylesheet" href="../../../static/css/css_2/style.css" />
+
+<body>
+
+<div class="login-container">
+	<h1>请输入需要添加的班级号</h1>
+
+	<form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+		<div>
+			<input type="text" name="grade1" class="grade" placeholder="请输入新班号1（可不填）" oncontextmenu="return false" onpaste="return false" />
+		</div>
+        <div>
+			<input type="text" name="grade2" class="grade" placeholder="请输入新班号2（可不填）" oncontextmenu="return false" onpaste="return false" />
+		</div>
+        <div>
+			<input type="text" name="grade3" class="grade" placeholder="请输入新班号3（可不填）" oncontextmenu="return false" onpaste="return false" />
+		</div>
+
+		<button type="submit" class="register-tis">确定添加</button>
+	</form>
+
+</div>
+<div style="margin-top: 200px"></div>
+
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/supersized-init.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+
+

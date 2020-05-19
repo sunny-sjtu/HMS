@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>显示并批改反馈</title>
+
+<link rel="stylesheet" href="../../../static/css/css_2/content_listForm.css" />
+
+<body>
+<div class="login-container">
+    <h1>批改反馈或订正后的主观题</h1>
+<a href="http://127.0.0.1:8000/login/download/{{file_name}}">
+    <button class="btn bg-danger">下载作业</button>
+</a>
+<p><span> 学生反馈评论：  {{feedback_comment}} </span></p >
+        <form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+            <div>
+			    <input type="text"  id="input_listForm" name="isright" class="correct_message" placeholder="请批改（对/错）" oncontextmenu="return false" onpaste="return false" />
+	        </div>
+            <input type="submit" id="input_listForm1" class="register-tis" value = "批改反馈" />
+        </form>
+</div>
+<div style="margin-top: 200px"></div>
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/supersized-init.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" href="../../../../../static/css/showStudent.css" type="text/css">
+    <title>所有学生该项作业情况</title>
+
+</head>
+<style>
+        html,body{text-align:center;margin:0px auto;}
+</style>
+<body>
+<h1>查看所有学生该项作业情况</h1>
+<u1>
+    <table border="1" cellspacing="0" cellpadding="15">
+        <tr>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>提交情况</th>
+            <th>订正情况</th>
+        </tr>
+        {% for homework in page %}
+           {%if homework.isComplete == False %}
+              <tr>
+               {%for student in studentList%}
+                          {%if homework.student_id == student.id%}
+                          <td class="name">{{student.sname}}</td>
+                          <td>{{student.sgrade}}</td>
+                          {%endif%}
+               {%endfor%}
+                <td>未提交</td>
+                <td>/</td>
+              </tr>
+           {%endif%}
+        {%endfor%}
+
+
+
+        {% for homework in page %}
+           {%if homework.isLate == True %}
+                {%for homework1 in homework1List %}
+                    {% if homework1.id == homework.id%}
+                        <tr class="onlyname">
+                            <td class="name">{{homework.student_name}}</td>
+                                {%for student in studentList%}
+                                    {%if student.sname == homework.student_name%}
+                                        <td>{{student.sgrade}}</td>
+                                    {% endif %}
+                                {%endfor%}
+                            <td>迟交</td>
+
+                                {% if homework1.iscommented == False %}
+                                    <td>未批改</td>
+                                {%else%}
+                                    {%if homework1.iscorrect == False %}
+                                        {% if homework1.isfeedback == False %}
+                                            <td>未订正</td>
+                                        {%else%}
+                                            <td>完成</td>
+                                        {%endif%}
+                                    {%else%}
+                                        <td>完成</td>
+                                    {%endif%}
+                                {%endif%}
+                            </tr>
+                    {%endif%}
+                {%endfor%}
+           {%endif%}
+        {%endfor%}
+
+
+
+
+        {%for homework in page%}
+        {% if homework.isLate == False %}
+             {%for homework1 in homework1List %}
+                   {% if homework1.id == homework.id%}
+                         {% if homework1.isComplete == True %}
+                                     <tr class="onlyname">
+                                        <td class="name">{{homework.student_name}}</td>
+                                        {%for student in studentList%}
+                                            {%if student.sname == homework.student_name%}
+                                                <td>{{student.sgrade}}</td>
+                                            {% endif %}
+                                        {%endfor%}
+                                        <td>正常提交</td>
+
+                                            {% if homework1.iscommented == True %}
+                                                 {%if homework1.iscorrect == False %}
+                                                    {% if homework1.isfeedback == False %}
+                                                        <td>未订正</td>
+                                                    {%else%}
+                                                        <td>完成</td>
+                                                    {%endif%}
+                                                {%else%}
+                                                    <td>完成</td>
+                                                {%endif%}
+                                            {%else%}
+                                                <td>未批改</td>
+                                            {%endif%}
+                                     </tr>
+                         {% endif %}
+                   {% endif %}
+             {%endfor%}
+        {% endif %}
+        {%endfor%}
+
+    </table>
+
+</u1>
+
+<nav aria-label="Page navigation">
+		<div class="pagination">
+			<ul class="pagination">
+			{% if page.has_previous %}
+				<li>
+                    <a href="http://127.0.0.1:8000/login/24/{{homework_id}}/{{page.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% for num in page.paginator.page_range %}
+            	{% if num == page.number %}
+                	<li class="active"><a href="http://127.0.0.1:8000/login/24/{{homework_id}}/{{num}}">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="http://127.0.0.1:8000/login/24/{{homework_id}}/{{num}}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if page.has_next %}
+                 <li>
+                     <a href="http://127.0.0.1:8000/login/24/{{homework_id}}/{{page.next_page_number}}" aria-label="Next">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% else %}
+                 <li class="disabled">
+                     <a href="" aria-label="Previous">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% endif %}
+       		</ul>
+		</div>
+ </nav>
+
+</body>
+</html>
