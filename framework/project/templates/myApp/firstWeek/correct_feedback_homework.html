@@ -14,8 +14,9 @@
 <a href="http://127.0.0.1:8000/login/download/{{file_name}}">
     <button class="btn bg-danger">下载作业</button>
 </a>
-<p><span> 学生反馈评论：  {{feedback_comment}} </span></p >
+
         <form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+            <p><span> 学生反馈评论：  {{feedback_comment}} </span></p >
             <div>
 			    <input type="text"  id="input_listForm" name="isright" class="correct_message" placeholder="请批改（对/错）" oncontextmenu="return false" onpaste="return false" />
 	        </div>
@@ -23,11 +24,13 @@
         </form>
 </div>
 <div style="margin-top: 200px"></div>
+
+
 <script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
 <script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
 <!--背景图片自动更换-->
 <script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
-<script type="text/javascript" src="../../../static/js/js_2/supersized-init.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/sm-8.js"></script>
 <!--表单验证-->
 <script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
 

@@ -26,10 +26,7 @@ urlpatterns = [
     url(r'^login/8/1/1/(\d+)$', view_firstWeek.teacher_alter_homework),  # 老师修改对应作业
     url(r'^login/8/1/2/(\d+)$', view_firstWeek.delete_teacher_homework),  # 老师删除对应作业
     url(r'^login/9/2/(\d+)/(\d+)$', view_firstWeek.check_submission_homework),  # 老师批改学生列表
-    url(r'^login/9/2/2/(\d+)/(\d+)$', view_firstWeek.check_common_student_the_homework),  # 老师查看正确或订正正确且未迟交的学生名单
     url(r'^login/9/(\d+)/(\d+)$', view_firstWeek.check_feedback_homework),  # 老师查看反馈学生列表
-    url(r'^login/9/1/1/(\d+)/(\d+)$', view_firstWeek.check_redo_homework),  # 老师查看未订正学生列表
-    url(r'^login/9/1/2/(\d+)/(\d+)$', view_firstWeek.check_not_submitted_homework),  # 老师查看未提交学生列表
     url(r'^login/10/(\d+)$', view_firstWeek.correct_homework),  # 老师批改学生作业
     url(r'^login/10/1/(\d+)$', view_firstWeek.correct_feedback_homework),  # 老师批改反馈内容
     url(r'^login/11/(\d+)$', views.check_gradelist),  # 老师查看所属班级
@@ -55,4 +52,6 @@ urlpatterns = [
 
     url(r'^login/download/(?P<file_name>.*)/$', view_firstWeek.download),  # 下载作业
     url(r'^login/24/(\d+)/(\d+)$', view_firstWeek.check_all_student_homework),   # 查看所有学生主观题作业情况
+    url(r'^login/25/(\d+)$', view_firstWeek.return_teacher_info),  # 返回教师主页
+    url(r'^login/26/(\d+)$', view_firstWeek.return_student_info),  # 返回学生主页
 ]

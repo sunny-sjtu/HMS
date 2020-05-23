@@ -133,6 +133,7 @@ def check_student_finished_homework_html2(request, num):  # 学生查看已提�
     student = Student.objects.get(id=num)
     teacher_gradeList = Teacher_grade.objects.filter(grade=student.sgrade)
     teacherList = []
+
     for teacher_grade in teacher_gradeList:
         teacher = Teacher.objects.filter(id=teacher_grade.teacher_id)
         teacherList = chain(teacherList, teacher)
@@ -330,7 +331,7 @@ def delete_teacher_homework(request, num):  # 教师删除对应作业
     for homework1 in homeworkList1:
         homework1.delete()
 
-    return render_to_response('myApp/secondWeek/teacher_delete_shomework.html')
+    return render_to_response('myApp/webpage/teacher_delete_shomework.html')
 
 
 def check_submission_homework(request, num, pindex):  # 老师查看作业提交情况
@@ -434,54 +435,6 @@ def check_feedback_homework(request, num, pindex):  # 老师查看反馈作业
                                                                                "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
 
 
-def check_redo_homework(request, num, pindex):  # 老师查看未订正学生名单
-    studentnamelist = Homework1.objects.filter(homework_id=num).order_by('-id')
-    studentList = Student.objects.all().order_by('-id')
-    paginator = Paginator(studentnamelist, 5)  # 实例化Paginator, 每页显示5条数据
-    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
-        pindex = 1
-    else:  # 如果有返回在值，把返回值转为整数型
-        int(pindex)
-    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
-    return render_to_response('myApp/firstWeek/check_redo_homework.html', {'studentnamelist': studentnamelist,
-                                                                           'homework_id': num,
-                                                                           'studentList': studentList,
-                                                                           "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
-
-
-def check_not_submitted_homework(request, num, pindex):  # 老师查看未提交学生名单
-    studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
-    studentList = Student.objects.all().order_by('-id')
-    paginator = Paginator(studentnamelist, 5)  # 实例化Paginator, 每页显示5条数据
-    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
-        pindex = 1
-    else:  # 如果有返回在值，把返回值转为整数型
-        int(pindex)
-    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
-    return render_to_response('myApp/firstWeek/check_not_submitted_homework.html', {'studentnamelist': studentnamelist,
-                                                                                    'homework_id': num,
-                                                                                    'studentList': studentList,
-                                                                                    "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
-
-
-def check_common_student_the_homework(request, num, pindex):  # 老师查看正确或订正正确且未迟交的学生名单
-
-    studentnamelist = Homework.objects.filter(homework_id=num).order_by('-id')
-    homework1List = Homework1.objects.all()
-    studentList = Student.objects.all()
-    paginator = Paginator(studentnamelist, 1)  # 实例化Paginator, 每页显示5条数据
-    if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
-        pindex = 1
-    else:  # 如果有返回在值，把返回值转为整数型
-        int(pindex)
-    page = paginator.page(pindex)  # 传递当前页的实例对象到前端
-    return render_to_response('myApp/firstWeek/check_common_student_the_homework.html',
-                              {'studentnamelist': studentnamelist,
-                               'homework_id': num, "page": page,
-                               'homework1List': homework1List,
-                               'studentList': studentList})
-
-
 @csrf_exempt
 def correct_feedback_homework(request, num1):  # 老师批改学生反馈内容
     homework1 = Homework1.objects.filter(pk=num1).first()
@@ -551,3 +504,15 @@ def check_all_student_homework(request, num, pindex):  # 查看所有学生主�
                                                                                     'studentList': studentList,
                                                                                     'homework1List': homework1List,
                                                                                     "page": page})  # 'file_url':studentnamelist.feedback_homework.url})
+
+
+def return_teacher_info(request, num):  # 返回教师主页
+    teacher = Teacher.objects.get(pk=num)
+    teacher_id = num
+    return render_to_response('myApp/preparation/info_teacher.html', {'teacher': teacher, "teacher_id": teacher_id})
+
+
+def return_student_info(request, num):  # 返回学生主页
+    student = Student.objects.get(pk=num)
+    student_id = num
+    return render_to_response('myApp/preparation/info_student.html', {'student': student, "student_id": student_id})

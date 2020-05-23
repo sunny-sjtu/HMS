@@ -15,6 +15,7 @@
     <!-- webfonts -->
 	<link href='//fonts.googleapis.com/css?family=Asap:400,700,400italic' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../../../static/css/css_2/navs.css">
     <!-- webfonts -->
     <!---- start-smoth-scrolling---->
     <script type="text/javascript" src="/static/js/js_2/move-top.js"></script>
@@ -23,40 +24,39 @@
     <title>查看学生个人信息</title>
 </head>
 <style>
-		*{padding: 0;margin: 0;}  /* 先重置一下html，消除HTML标签默认的内外边距 */
-		    .wrap{width: 2400px;margin: 0 auto ;}    /* 对导航的内容设置一个主体为800px的宽并使其居中 */
-		    .clear{clear: both;}  /* 清除浮动 */
-		    a{text-decoration-line: none;}   /* 去掉默认a标签的下划线 */
-		    ul,li{list-style: none;}
-		    nav .level>li{float: left;width: 16.66%;text-align: center;background: #a7abff;padding: 10px 0;font-size: 16px;transition: .4s;}
 
-		    nav .level>li:hover{background-color: #9ba78c;color: #FFFFFF;}   /* 设置鼠标滑过后的样式 */
-		    nav .level>li>a:hover{color: #FFFFFF;}
-		    nav .two{display: none;margin-top: 10px;}  /* 先使二级菜单的内容隐藏 */
-		    nav .level>li:hover .two{display: block;}   /* 鼠标滑过一级菜单后的显示二级菜单 */
-		    nav .two>li>a{color: rgb(85,26,139);}
-		    nav .two li{padding: 5px 0;transition: .4s;cursor: pointer;}
-		    nav .two li:hover{background: pink;}
-            nav .two>li>a:hover{color: #FFFFFF;}
-            html,body{margin:0px auto;}
-            nav{z-index: 5;}
-            .aaa{position: absolute;
-            left: 35%;
-            top : 12%;}
+body{
+    width: 100%;
+	height: 100vh;
+	margin: 0 auto;
+	background-image:url(../../../static/img/sm/sm-8.jpg);
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+	overflow: auto;
+	text-align: left;
+}
+
+.wrap{
+	width: 100%;
+}
+
+.aaa{
+	position: absolute;
+	left: 36%;
+	top : 15%;
+}
 </style>
 <body>
 
 <nav>
 	        <div class="wrap">
 	            <ul class="level">
-                    <li style="background-color: #a7abff;color: black;
-	                font-family:Arial, Helvetica, sans-serif;color:#5f5f5f;
-      				text-transform:uppercase">(゜▽゜*)♪ 欢迎来到你的个人空间~  (゜▽゜*)♪</li>
-                    <li><a href="#">首页</a></li>
+                    <li class="color1" >(゜▽゜*)♪ 欢迎来到你的个人空间~  (゜▽゜*)♪</li>
+                    <li><a href ="http://127.0.0.1:8000/login/26/{{student.id}}">首页</a></li>
 	                <li>
-	                    <a style="color: white" href="#">个人信息</a>
+	                    <a class="color2"  href="#">个人信息</a>
 	                    <ul class="two">
-	                        <li><a style="color: white" href="">查看个人信息</a></li>
+	                        <li><a class="color2"  href="">查看个人信息</a></li>
 	                        <li><a href="../2/{{student.id}}">修改个人信息</a></li>
 	                    </ul>
 	                </li>
@@ -131,7 +131,7 @@
 					</ul>
 				</div>
             </div>
-	    <div style="margin: 100px"></div>
+
 </div>
 </div>
 </body>

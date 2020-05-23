@@ -1,0 +1,91 @@
+body{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #CCCCCC;
+}
+
+.box{
+    width: 60%;
+    height: 200px;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+    border-radius: 10px;
+    padding: 50px 50px;
+
+}
+
+.box p{
+    background:linear-gradient(to right, yellow, rgba(13, 227, 235, 0.829));
+    -webkit-background-clip: text;
+    color:transparent;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 16%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif
+  }
+
+  .button {
+    background: #af9bf7;
+    color: #fff;
+    padding: 10px 25px;
+  }
+
+  .modal>input {
+    display: none;
+  }
+
+  .modal>input~* {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0
+  }
+
+  .modal .overlay {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(17, 17, 17, 0.6);
+    transition: all 0.3s;
+    z-index: 100000;
+  }
+
+  .modal .overlay~* {
+    border: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(0.2, 0.2);
+    z-index: 1000000;
+    transition: all .3s ease;
+  }
+
+  .main {
+    background: white;
+    padding: 10px;
+  }
+
+  .modal>input:checked~* {
+    display: block;
+    opacity: 1;
+    max-height: 10000px;
+  }
+
+  .modal>input:checked~.overlay~* {
+    max-height: 90%;
+    overflow: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%) scale(1, 1);
+    transform: translateX(-50%) translateY(-50%) scale(1, 1);
+  }
