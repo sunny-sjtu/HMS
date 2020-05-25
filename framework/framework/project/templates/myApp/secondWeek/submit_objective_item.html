@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>提交客观题</title>
+
+<link rel="stylesheet" href="../../../static/css/css_2/content_listForm.css" />
+<link rel="stylesheet" href="../../../static/css/css_2/style.css" />
+
+<body>
+<div style="margin-top: 300px"></div>
+    <div class="login-container">
+
+	    <h1>提交客观题</h1>
+        <div style="margin-top: 25px"></div>
+
+        <form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+            <div>
+			    <input type="text" name="student_answer" class="student_answer" placeholder="请按照单选顺序输入依次选项答案" oncontextmenu="return false" onpaste="return false" />
+		    </div>
+            <div style="margin-top: 20px"></div>
+            <input type="submit" class="register-tis" value = "提交" />
+        </form>
+    </div>
+
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/sm-10.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+</body>
+</html>

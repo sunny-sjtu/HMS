@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>修改老师个人信息</title>
+
+<link rel="stylesheet" href="../../../static/css/css_2/content_listForm.css" />
+<link rel="stylesheet" href="../../../static/css/css_2/style.css" />
+<link rel="stylesheet" href="../../../static/css/css_2/nav.css">
+
+<style>
+.aaa{
+	position: absolute;
+	left: 40%;
+	top : 15%;
+}
+</style>
+<body>
+<nav>
+	        <div class="wrap">
+	            <ul class="level">
+	                <li class="color1">*≧▽≦* 欢迎来到你的个人空间~  *≧▽≦*</li>
+					<li ><a href="http://127.0.0.1:8000/login/25/{{teacher_id}}">首页</a></li>
+	                <li>
+	                    <a href="#">班级</a>
+	                    <ul class="two">
+	                        <li><a href="../11/{{teacher_id}}">查看所教班级</a></li>
+
+	                    </ul>
+	                </li>
+	                <li>
+	                    <a class="color2" href="#">个人信息</a>
+	                    <ul  class="two">
+	                        <li><a href="../{{teacher_id}}">查看个人信息</a></li>
+	                        <li><a class="color2" href="">修改个人信息</a></li>
+	                    </ul>
+	                </li>
+                    <li>
+	                    <a href="#">作业</a>
+	                    <ul class="two">
+	                        <li><a href="../5/{{teacher_id}}">发布主观题作业</a></li>
+	                        <li><a href="../16/{{teacher_id}}">发布客观题作业</a></li>
+                            <li><a href="../8/{{teacher_id}}/1">查看主观题</a> </li>
+                            <li><a href="../17/{{teacher_id}}/1">查看客观题</a> </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
+</nav>
+
+<div class="aaa">
+<div class="login-container">
+
+	<h1>请输入更改后的个人信息</h1>
+
+	<form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+		<div>
+			<input type="text" id="1" name="email" class="email" placeholder="请输入新邮箱地址" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="password" id="2" name="password" class="password" placeholder="请输入新密码" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="password" id="3" name="confirm_password" class="confirm_password" placeholder="再次输入密码" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="text" id="4" name="sname" class="username" placeholder="请输入新姓名" autocomplete="off"/>
+		</div>
+        <div>
+            <input type="text" id="5" name="sgender" class="gender" placeholder="请输入性别(男/女)" oncontextmenu="return false" onpaste="return false"/>
+        </div>
+        <div>
+            <input type="text" id="6" name="sage" class="age" placeholder="请输入年龄" oncontextmenu="return false" onpaste="return false">
+        </div>
+
+		<button type="submit" class="register-tis">确定修改</button>
+	</form>
+
+	</div>
+
+<div style="margin-top: 200px"></div>
+</div>
+
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/sm-1.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+</body>
+

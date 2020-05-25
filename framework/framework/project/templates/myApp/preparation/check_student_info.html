@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <!-- Custom Theme files -->
+    <link href="/static/css/css_2/style1.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Preface Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <!-- webfonts -->
+	<link href='//fonts.googleapis.com/css?family=Asap:400,700,400italic' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../../../static/css/css_2/navs.css">
+    <!-- webfonts -->
+    <!---- start-smoth-scrolling---->
+    <script type="text/javascript" src="/static/js/js_2/move-top.js"></script>
+    <script type="text/javascript" src="/static/js/js_2/easing.js"></script>
+
+    <title>查看学生个人信息</title>
+</head>
+<style>
+
+body{
+    width: 100%;
+	height: 100vh;
+	margin: 0 auto;
+	background-image:url(../../../static/img/sm/sm-8.jpg);
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+	overflow: auto;
+	text-align: left;
+}
+
+.wrap{
+	width: 100%;
+}
+
+.aaa{
+	position: absolute;
+	left: 36%;
+	top : 15%;
+}
+</style>
+<body>
+
+<nav>
+	        <div class="wrap">
+	            <ul class="level">
+                    <li class="color1" >(゜▽゜*)♪ 欢迎来到你的个人空间~  (゜▽゜*)♪</li>
+                    <li><a href ="http://127.0.0.1:8000/login/26/{{student.id}}">首页</a></li>
+	                <li>
+	                    <a class="color2"  href="#">个人信息</a>
+	                    <ul class="two">
+	                        <li><a class="color2"  href="">查看个人信息</a></li>
+	                        <li><a href="../2/{{student.id}}">修改个人信息</a></li>
+	                    </ul>
+	                </li>
+	                <li>
+	                    <a href="#">作业</a>
+	                    <ul class="two">
+	                        <li><a href="../6/{{student.id}}">已提交作业</a></li>
+	                        <li><a href="../13/{{student.id}}">待提交作业</a></li>
+	                        <li><a href="../21/{{student.id}}">已提交客观题</a></li>
+							<li><a href="../19/{{student.id}}">待提交客观题</a></li>
+	                    </ul>
+	                </li>
+
+	            </ul>
+	        </div>
+	    </nav>
+
+<div class="row text-center vertical-middle-sm">
+
+
+
+
+<div class="aaa">
+            <div class="banner-info">
+				<div class="col-md-7 header-right">
+					<h1>Hi!</h1>
+					<h6>您的个人信息在这里哦~请注意查看是否正确</h6>
+					<ul class="address">
+
+					<li>
+							<ul class="address-text">
+								<li><b>姓名</b></li>
+								<li>{{student.sname}}</li>
+							</ul>
+						</li>
+						<li>
+							<ul class="address-text">
+								<li><b>性别</b></li>
+								<li>{% if student.sgender == True %}
+                                        男
+                                    {% else %}
+                                        女
+                                    {% endif %}</li>
+							</ul>
+						</li>
+						<li>
+							<ul class="address-text">
+								<li><b>年龄 </b></li>
+								<li>{{student.sage}}</li>
+							</ul>
+						</li>
+						<li>
+							<ul class="address-text">
+								<li><b>班级 </b></li>
+								<li>{{student.sgrade}}</li>
+							</ul>
+						</li>
+						<li>
+							<ul class="address-text">
+								<li><b>邮箱</b></li>
+								<li>{{user.email}}</li>
+							</ul>
+						</li>
+						<li>
+							<ul class="address-text">
+								<li><b>密码</b></li>
+								<li>
+                                  {{user.password}}
+                                </li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+            </div>
+
+</div>
+</div>
+</body>
+</html>
