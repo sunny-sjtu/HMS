@@ -107,19 +107,20 @@ def teacher_alter_homework(request, num):  # 修改已发布的主观题
             homework1 = Teacher_homework.objects.get(pk=num)
             homework_content_origin = homework1.homework_content
 
-            homework = Homework.objects.get(homework_content=homework_content_origin)
-            homework_content = userform.cleaned_data['homework_content']
-            deadline_days = userform.cleaned_data['deadline_days']
+            homeworkList = Homework.objects.filter(homework_content=homework_content_origin)
+            for homework in homeworkList:
+                homework_content = userform.cleaned_data['homework_content']
+                deadline_days = userform.cleaned_data['deadline_days']
 
-            create_time = homework.homework_create_time
-            create_time = datetime.strptime(create_time.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
-            homework_deadline = create_time + timedelta(days=deadline_days)
-            homework_deadline = datetime.strptime(homework_deadline.strftime("%Y-%m-%d %H:%M:%S"),
+                create_time = homework.homework_create_time
+                create_time = datetime.strptime(create_time.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
+                homework_deadline = create_time + timedelta(days=deadline_days)
+                homework_deadline = datetime.strptime(homework_deadline.strftime("%Y-%m-%d %H:%M:%S"),
                                                   "%Y-%m-%d %H:%M:%S")
 
-            Homework.objects.filter(homework_content=homework_content_origin).update(homework_content=homework_content,
+                Homework.objects.filter(homework_content=homework_content_origin).update(homework_content=homework_content,
                                                                                      homework_deadline=homework_deadline)
-            Teacher_homework.objects.filter(homework_content=homework_content_origin).update(
+                Teacher_homework.objects.filter(homework_content=homework_content_origin).update(
                 homework_content=homework_content)
 
             return render_to_response('myApp/webpage/teacher_alter_homework_1.html')

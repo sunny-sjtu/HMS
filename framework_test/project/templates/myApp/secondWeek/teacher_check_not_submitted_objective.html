@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" href="../../../../static/css/showStudent.css" type="text/css">
+    <title>未提交或迟交客观题学生名单</title>
+
+</head>
+<style>
+        html,body{text-align:center;margin:0px auto;}
+                        body{
+    width: 100%;
+	height: 100vh;
+	margin: 0 auto;
+	background-image:url(../../../static/img/sm/sm-34.jpg);
+	background-repeat: no-repeat;
+	background-size:cover;
+	overflow: auto;
+}
+</style>
+<body>
+<h1>未提交或迟交客观题学生名单</h1>
+<u1>
+    <table border="1" cellspacing="0" cellpadding="20">
+        <tr>
+            <th>姓名</th>
+            <th>完成情况</th>
+            <th>正确答案</th>
+            <th>学生答案</th>
+            <th>正确率</th>
+        </tr>
+        {%for homework in page%}
+
+           {%if homework.isComplete == False %}
+           <tr>
+               <td class="name">{{homework.student_name}}</td>
+               <td>未提交</td>
+               <td class="fixed">{{homework.answer}}</td>
+               <td class="fixed">/</td>
+               <td>/</td>
+           </tr>
+          {%endif%}
+
+            {%if homework.isLate == True %}
+            <tr>
+               <td class="name">{{homework.student_name}}</td>
+               <td>迟交</td>
+               <td class="fixed">{{homework.answer}}</td>
+               <td class="fixed">{{homework.student_answer}}</td>
+               <td>{{homework.accuracy}}</td>
+            </tr>
+          {%endif%}
+        {%endfor%}
+    </table>
+
+</u1>
+
+<nav aria-label="Page navigation">
+		<div class="pagination">
+			<ul class="pagination">
+			{% if page.has_previous %}
+				<li>
+                    <a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{page.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% for num in page.paginator.page_range %}
+            	{% if num == page.number %}
+                	<li class="active"><a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{num}}">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{num}}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if page.has_next %}
+                 <li>
+                     <a href="http://127.0.0.1:8000/login/18/1/{{item_id}}/{{page.next_page_number}}" aria-label="Next">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% else %}
+                 <li class="disabled">
+                     <a href="" aria-label="Previous">
+                         <span aria-hidden="true">&raquo;</span>
+                     </a>
+                 </li>
+            {% endif %}
+       		</ul>
+		</div>
+ </nav>
+
+</body>
+</html>

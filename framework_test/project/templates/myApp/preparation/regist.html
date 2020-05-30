@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>注册</title>
+
+<link rel="stylesheet" href="../../../static/css/css_2/style.css" />
+
+<body>
+
+<div class="login-container">
+	<h1>Register</h1>
+
+	<div class="connect">
+		<p>欢迎来到17吧，一起吧~_~</p>
+	</div>
+
+	<form action="" method="post" id="registerForm" enctype="multipart/form-data"> {% csrf_token %}
+		<div>
+			<input type="text" name="email" class="email" placeholder="请输入邮箱地址" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="password" name="password" class="password" placeholder="请输入密码" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="password" name="confirm_password" class="confirm_password" placeholder="再次输入密码" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div>
+			<input type="text" name="username" class="username" placeholder="您的姓名" autocomplete="off"/>
+		</div>
+        <div>
+            <input type="text" name="gender" class="gender" placeholder="请输入性别(男/女)" oncontextmenu="return false" onpaste="return false"/>
+        </div>
+        <div>
+            <input type="text" name="age" class="age" placeholder="请输入年龄" oncontextmenu="return false" onpaste="return false">
+        </div>
+        <div>
+			<input type="text" name="grade" class="grade" placeholder="学生请输入班号" oncontextmenu="return false" onpaste="return false" />
+		</div>
+        <div>
+			<input type="password" name="isTeacher" class="password" placeholder="老师请输入职工密钥" oncontextmenu="return false" onpaste="return false" />
+		</div>
+		<div class="white_button">
+			<a class="white">
+    			<p><span class="bg"></span><span class="base"></span><span class="text" type="submit"><button id="submit" type="submit">注 册</button></span></p>
+			</a>
+		</div>
+	</form>
+	<a href="http://127.0.0.1:8000/login">
+		<button type="button" class="register-tis">已经有账号？</button>
+	</a>
+
+</div>
+<div style="margin-top: 200px"></div>
+
+<script type="text/javascript" src="../../../static/js/js_2/jquery.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/common.js"></script>
+<!--背景图片自动更换-->
+<script type="text/javascript" src="../../../static/js/js_2/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="../../../static/js/js_2/supersized-init.js"></script>
+<!--表单验证-->
+<script type="text/javascript" src="../../../static/js/js_2/jquery.validate.min.js?var1.14.0"></script>
+
+
+</body>
+</html>
